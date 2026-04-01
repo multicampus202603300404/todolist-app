@@ -1,0 +1,1411 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "todolist-app API",
+    "version": "1.0.0",
+    "description": "개인별 할일 관리 애플리케이션 REST API"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000",
+      "description": "Local development server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "인증 관련 API"
+    },
+    {
+      "name": "Todos",
+      "description": "할일 관련 API"
+    },
+    {
+      "name": "Statistics",
+      "description": "통계 관련 API"
+    }
+  ],
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "회원가입",
+        "description": "새 사용자를 등록합니다.",
+        "operationId": "register",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              },
+              "example": {
+                "email": "user@example.com",
+                "password": "P@ssw0rd1!"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "회원가입 성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "id": "550e8400-e29b-41d4-a716-446655440000",
+                  "email": "user@example.com",
+                  "created_at": "2026-04-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "이메일 형식 오류 또는 비밀번호 정책 미충족",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "invalidEmail": {
+                    "summary": "이메일 형식 오류",
+                    "value": {
+                      "error": {
+                        "code": "INVALID_EMAIL",
+                        "message": "올바른 이메일 형식을 입력해주세요"
+                      }
+                    }
+                  },
+                  "weakPassword": {
+                    "summary": "비밀번호 정책 미충족",
+                    "value": {
+                      "error": {
+                        "code": "WEAK_PASSWORD",
+                        "message": "비밀번호는 8~20자이며 대문자, 소문자, 숫자, 특수문자를 각각 1자 이상 포함해야 합니다"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "이메일 중복",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "EMAIL_ALREADY_EXISTS",
+                    "message": "이미 사용 중인 이메일입니다"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "로그인",
+        "description": "이메일과 비밀번호로 로그인하여 JWT 토큰을 발급받습니다.",
+        "operationId": "login",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              },
+              "example": {
+                "email": "user@example.com",
+                "password": "P@ssw0rd1!"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "로그인 성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                },
+                "example": {
+                  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "이메일 또는 비밀번호 불일치",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_CREDENTIALS",
+                    "message": "이메일 또는 비밀번호가 올바르지 않습니다"
+                  }
+                }
+              }
+            }
+          },
+          "423": {
+            "description": "계정 잠금",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "ACCOUNT_LOCKED",
+                    "message": "로그인 시도 횟수 초과로 계정이 잠겼습니다"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "로그아웃",
+        "description": "Refresh Token을 무효화하고 로그아웃합니다.",
+        "operationId": "logout",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Refresh Token을 무효화하고 로그아웃합니다. Refresh Token은 httpOnly Cookie에서 자동 전송됩니다.",
+        "responses": {
+          "200": {
+            "description": "로그아웃 성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "로그아웃 되었습니다"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHORIZED",
+                    "message": "인증이 필요합니다"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/refresh": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Access Token 재발급",
+        "description": "Refresh Token으로 새 Access Token을 발급받습니다.",
+        "operationId": "refreshToken",
+        "description": "Refresh Token으로 새 Access Token을 발급받습니다. Refresh Token은 httpOnly Cookie에서 자동 전송됩니다.",
+        "responses": {
+          "200": {
+            "description": "토큰 재발급 성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefreshResponse"
+                },
+                "example": {
+                  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "유효하지 않은 Refresh Token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_REFRESH_TOKEN",
+                    "message": "유효하지 않거나 만료된 Refresh Token입니다"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/todos/statistics": {
+      "get": {
+        "tags": ["Statistics"],
+        "summary": "할일 통계 조회",
+        "description": "인증된 사용자의 할일 전체 통계를 조회합니다.",
+        "operationId": "getTodoStatistics",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "통계 조회 성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TodoStatistics"
+                },
+                "example": {
+                  "total": 42,
+                  "by_status": {
+                    "UPCOMING": 10,
+                    "IN_PROGRESS": 8,
+                    "OVERDUE": 4,
+                    "COMPLETED_ON_TIME": 15,
+                    "COMPLETED_LATE": 5
+                  },
+                  "completion_rate": 47.62,
+                  "on_time_rate": 75.0,
+                  "overdue_count": 9
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHORIZED",
+                    "message": "인증이 필요합니다"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/todos": {
+      "post": {
+        "tags": ["Todos"],
+        "summary": "할일 생성",
+        "description": "새 할일을 생성합니다.",
+        "operationId": "createTodo",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoCreate"
+              },
+              "example": {
+                "title": "OpenAPI 스펙 작성",
+                "description": "todolist-app의 Swagger 문서를 작성한다.",
+                "start_date": "2026-04-01",
+                "end_date": "2026-04-02"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "할일 생성 성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "유효성 검증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "VALIDATION_ERROR",
+                    "message": "유효성 검증에 실패했습니다"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHORIZED",
+                    "message": "인증이 필요합니다"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Todos"],
+        "summary": "할일 목록 조회",
+        "description": "인증된 사용자의 할일 목록을 페이지네이션으로 조회합니다.",
+        "operationId": "getTodos",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "description": "할일 상태 필터",
+            "schema": {
+              "$ref": "#/components/schemas/TodoStatus"
+            }
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "description": "정렬 기준 (기본값: created_at)",
+            "schema": {
+              "type": "string",
+              "enum": ["end_date", "start_date", "created_at", "title"],
+              "default": "created_at"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "description": "정렬 방향 (기본값: desc)",
+            "schema": {
+              "type": "string",
+              "enum": ["asc", "desc"],
+              "default": "desc"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "페이지 번호 (기본값: 1)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "페이지 당 항목 수 (기본값: 20)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "할일 목록 조회 성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TodoListItem"
+                      }
+                    },
+                    "pagination": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  },
+                  "required": ["data", "pagination"]
+                },
+                "example": {
+                  "data": [
+                    {
+                      "id": "550e8400-e29b-41d4-a716-446655440001",
+                      "title": "OpenAPI 스펙 작성",
+                      "start_date": "2026-04-01",
+                      "end_date": "2026-04-02",
+                      "is_completed": false,
+                      "completed_at": null,
+                      "status": "IN_PROGRESS",
+                      "created_at": "2026-04-01T00:00:00.000Z",
+                      "updated_at": "2026-04-01T00:00:00.000Z"
+                    }
+                  ],
+                  "pagination": {
+                    "total": 42,
+                    "page": 1,
+                    "limit": 20,
+                    "totalPages": 3
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "유효하지 않은 status 또는 sort_by",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_QUERY_PARAM",
+                    "message": "올바른 상태 값을 입력해주세요"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHORIZED",
+                    "message": "인증이 필요합니다"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/todos/{id}": {
+      "get": {
+        "tags": ["Todos"],
+        "summary": "할일 단건 조회",
+        "description": "특정 할일의 전체 정보를 조회합니다.",
+        "operationId": "getTodoById",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "할일 ID (UUID)",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "할일 조회 성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHORIZED",
+                    "message": "인증이 필요합니다"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "존재하지 않거나 타 사용자 소유",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "TODO_NOT_FOUND",
+                    "message": "할일을 찾을 수 없습니다"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Todos"],
+        "summary": "할일 수정",
+        "description": "특정 할일의 전체 내용을 수정합니다.",
+        "operationId": "updateTodo",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "할일 ID (UUID)",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoUpdate"
+              },
+              "example": {
+                "title": "OpenAPI 스펙 수정",
+                "description": "todolist-app의 Swagger 문서를 업데이트한다.",
+                "start_date": "2026-04-01",
+                "end_date": "2026-04-03"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "할일 수정 성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "유효성 검증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "VALIDATION_ERROR",
+                    "message": "유효성 검증에 실패했습니다"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHORIZED",
+                    "message": "인증이 필요합니다"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "존재하지 않거나 타 사용자 소유",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "TODO_NOT_FOUND",
+                    "message": "할일을 찾을 수 없습니다"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Todos"],
+        "summary": "할일 삭제",
+        "description": "특정 할일을 삭제합니다.",
+        "operationId": "deleteTodo",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "할일 ID (UUID)",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "할일 삭제 성공 (No Content)"
+          },
+          "401": {
+            "description": "인증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHORIZED",
+                    "message": "인증이 필요합니다"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "존재하지 않거나 타 사용자 소유",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "TODO_NOT_FOUND",
+                    "message": "할일을 찾을 수 없습니다"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/todos/{id}/complete": {
+      "patch": {
+        "tags": ["Todos"],
+        "summary": "할일 완료 처리",
+        "description": "특정 할일을 완료 상태로 변경합니다. 완료 시각을 기준으로 기한 내 완료(COMPLETED_ON_TIME) 또는 지연 완료(COMPLETED_LATE) 상태가 결정됩니다.",
+        "operationId": "completeTodo",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "할일 ID (UUID)",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "완료 처리 성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TodoCompleteResponse"
+                },
+                "example": {
+                  "id": "550e8400-e29b-41d4-a716-446655440001",
+                  "is_completed": true,
+                  "completed_at": "2026-04-02T09:30:00.000Z",
+                  "status": "COMPLETED_ON_TIME"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHORIZED",
+                    "message": "인증이 필요합니다"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "존재하지 않거나 타 사용자 소유",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "TODO_NOT_FOUND",
+                    "message": "할일을 찾을 수 없습니다"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "이미 완료된 할일",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "ALREADY_COMPLETED",
+                    "message": "이미 완료된 할일입니다"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/todos/{id}/uncomplete": {
+      "patch": {
+        "tags": ["Todos"],
+        "summary": "할일 완료 취소",
+        "description": "완료 상태의 할일을 미완료 상태로 되돌립니다. 현재 날짜를 기준으로 UPCOMING, IN_PROGRESS, OVERDUE 중 적절한 상태가 자동 결정됩니다.",
+        "operationId": "uncompleteTodo",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "할일 ID (UUID)",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "완료 취소 성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TodoUncompleteResponse"
+                },
+                "example": {
+                  "id": "550e8400-e29b-41d4-a716-446655440001",
+                  "is_completed": false,
+                  "completed_at": null,
+                  "status": "IN_PROGRESS"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHORIZED",
+                    "message": "인증이 필요합니다"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "존재하지 않거나 타 사용자 소유",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "TODO_NOT_FOUND",
+                    "message": "할일을 찾을 수 없습니다"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "완료되지 않은 할일",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "NOT_COMPLETED",
+                    "message": "완료되지 않은 할일입니다"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT Access Token. Authorization: Bearer {accessToken}"
+      }
+    },
+    "schemas": {
+      "TodoStatus": {
+        "type": "string",
+        "enum": [
+          "UPCOMING",
+          "IN_PROGRESS",
+          "OVERDUE",
+          "COMPLETED_ON_TIME",
+          "COMPLETED_LATE"
+        ],
+        "description": "할일 상태\n- UPCOMING: 시작일 이전\n- IN_PROGRESS: 진행 중 (시작일~종료일)\n- OVERDUE: 기한 초과 미완료\n- COMPLETED_ON_TIME: 기한 내 완료\n- COMPLETED_LATE: 기한 초과 후 완료"
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "사용자 고유 ID"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "사용자 이메일 (RFC5321)"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "계정 생성 일시 (ISO8601)"
+          }
+        },
+        "required": ["id", "email", "created_at"]
+      },
+      "Todo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "할일 고유 ID"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "소유자 사용자 ID"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "할일 제목"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000,
+            "nullable": true,
+            "description": "할일 설명 (선택)"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date",
+            "description": "시작일 (YYYY-MM-DD)"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date",
+            "description": "종료일 (YYYY-MM-DD)"
+          },
+          "is_completed": {
+            "type": "boolean",
+            "description": "완료 여부"
+          },
+          "completed_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "완료 일시 (ISO8601, 미완료 시 null)"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TodoStatus"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "생성 일시 (ISO8601)"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "수정 일시 (ISO8601)"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "title",
+          "start_date",
+          "end_date",
+          "is_completed",
+          "status",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "TodoListItem": {
+        "type": "object",
+        "description": "할일 목록 조회 시 반환되는 항목 (description 미포함)",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "할일 고유 ID"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "할일 제목"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date",
+            "description": "시작일 (YYYY-MM-DD)"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date",
+            "description": "종료일 (YYYY-MM-DD)"
+          },
+          "is_completed": {
+            "type": "boolean",
+            "description": "완료 여부"
+          },
+          "completed_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "완료 일시 (ISO8601, 미완료 시 null)"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TodoStatus"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "생성 일시 (ISO8601)"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "수정 일시 (ISO8601)"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "start_date",
+          "end_date",
+          "is_completed",
+          "status",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "TodoCreate": {
+        "type": "object",
+        "description": "할일 생성 요청 본문",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "할일 제목"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000,
+            "nullable": true,
+            "description": "할일 설명 (선택)"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date",
+            "description": "시작일 (YYYY-MM-DD)"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date",
+            "description": "종료일 (YYYY-MM-DD)"
+          }
+        },
+        "required": ["title", "start_date", "end_date"]
+      },
+      "TodoUpdate": {
+        "type": "object",
+        "description": "할일 수정 요청 본문",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "할일 제목"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000,
+            "nullable": true,
+            "description": "할일 설명 (선택)"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date",
+            "description": "시작일 (YYYY-MM-DD)"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date",
+            "description": "종료일 (YYYY-MM-DD)"
+          }
+        },
+        "required": ["title", "start_date", "end_date"]
+      },
+      "Pagination": {
+        "type": "object",
+        "description": "페이지네이션 메타 정보",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "description": "전체 항목 수"
+          },
+          "page": {
+            "type": "integer",
+            "description": "현재 페이지 번호"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "페이지 당 항목 수"
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "전체 페이지 수"
+          }
+        },
+        "required": ["total", "page", "limit", "totalPages"]
+      },
+      "TodoStatistics": {
+        "type": "object",
+        "description": "할일 통계",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "description": "전체 할일 수"
+          },
+          "by_status": {
+            "type": "object",
+            "description": "상태별 할일 수",
+            "properties": {
+              "UPCOMING": {
+                "type": "integer"
+              },
+              "IN_PROGRESS": {
+                "type": "integer"
+              },
+              "OVERDUE": {
+                "type": "integer"
+              },
+              "COMPLETED_ON_TIME": {
+                "type": "integer"
+              },
+              "COMPLETED_LATE": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "UPCOMING",
+              "IN_PROGRESS",
+              "OVERDUE",
+              "COMPLETED_ON_TIME",
+              "COMPLETED_LATE"
+            ]
+          },
+          "completion_rate": {
+            "type": "number",
+            "format": "float",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "완료율 (%)"
+          },
+          "on_time_rate": {
+            "type": "number",
+            "format": "float",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "기한 내 완료율 (완료된 항목 중 %)"
+          },
+          "overdue_count": {
+            "type": "integer",
+            "description": "기한 초과 건수 (OVERDUE + COMPLETED_LATE 합산)"
+          }
+        },
+        "required": [
+          "total",
+          "by_status",
+          "completion_rate",
+          "on_time_rate",
+          "overdue_count"
+        ]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "description": "공통 에러 응답 형식",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "에러 코드"
+              },
+              "message": {
+                "type": "string",
+                "description": "에러 메시지"
+              }
+            },
+            "required": ["code", "message"]
+          }
+        },
+        "required": ["error"]
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "사용자 이메일 (RFC5321)"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "minLength": 8,
+            "maxLength": 20,
+            "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,20}$",
+            "description": "비밀번호 (8~20자, 대문자·소문자·숫자·특수문자(!@#$%^&*) 각 1자 이상)"
+          }
+        },
+        "required": ["email", "password"]
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "사용자 이메일"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "minLength": 8,
+            "maxLength": 20,
+            "description": "비밀번호"
+          }
+        },
+        "required": ["email", "password"]
+      },
+      "LoginResponse": {
+        "type": "object",
+        "description": "로그인 성공 응답. Refresh Token은 응답 body에 포함되지 않으며 httpOnly; Secure; SameSite=Strict 쿠키(Set-Cookie 헤더)로만 전달된다.",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "JWT Access Token (유효기간 30분)"
+          }
+        },
+        "required": ["access_token"]
+      },
+      "LogoutRequest": {
+        "type": "object",
+        "description": "로그아웃 요청. Refresh Token은 httpOnly Cookie에서 자동으로 전송되므로 요청 body는 비어있어도 된다.",
+        "properties": {}
+      },
+      "RefreshRequest": {
+        "type": "object",
+        "description": "토큰 재발급 요청. Refresh Token은 httpOnly Cookie에서 자동으로 전송되므로 요청 body는 비어있어도 된다.",
+        "properties": {}
+      },
+      "RefreshResponse": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "새로 발급된 JWT Access Token (유효기간 30분)"
+          }
+        },
+        "required": ["access_token"]
+      },
+      "TodoCompleteResponse": {
+        "type": "object",
+        "description": "할일 완료 처리 응답",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "할일 고유 ID"
+          },
+          "is_completed": {
+            "type": "boolean",
+            "enum": [true],
+            "description": "완료 여부 (항상 true)"
+          },
+          "completed_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "완료 일시 (ISO8601)"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["COMPLETED_ON_TIME", "COMPLETED_LATE"],
+            "description": "완료 상태"
+          }
+        },
+        "required": ["id", "is_completed", "completed_at", "status"]
+      },
+      "TodoUncompleteResponse": {
+        "type": "object",
+        "description": "할일 완료 취소 응답",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "할일 고유 ID"
+          },
+          "is_completed": {
+            "type": "boolean",
+            "enum": [false],
+            "description": "완료 여부 (항상 false)"
+          },
+          "completed_at": {
+            "nullable": true,
+            "enum": [null],
+            "description": "완료 일시 (항상 null)"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["UPCOMING", "IN_PROGRESS", "OVERDUE"],
+            "description": "미완료 상태"
+          }
+        },
+        "required": ["id", "is_completed", "completed_at", "status"]
+      }
+    }
+  }
+}
