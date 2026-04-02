@@ -11,6 +11,7 @@ async function create(req, res, next) {
 async function list(req, res, next) {
   try {
     const filters = {
+      status: req.query.status || undefined,
       sort_by: req.query.sort_by || 'created_at',
       order: req.query.order || 'desc',
       page: parseInt(req.query.page, 10) || 1,

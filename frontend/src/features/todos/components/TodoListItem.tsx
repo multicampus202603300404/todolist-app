@@ -4,6 +4,7 @@ import { todosApi } from '@/api';
 import { useToastStore } from '@/stores/toastStore';
 import { StatusBadge } from './StatusBadge';
 import type { TodoListItem as TodoListItemType } from '@/types';
+import { formatDate } from '@/utils/formatDate';
 import styles from './TodoList.module.css';
 
 export function TodoListItem({ todo }: { todo: TodoListItemType }) {
@@ -24,7 +25,7 @@ export function TodoListItem({ todo }: { todo: TodoListItemType }) {
         onClick={(e) => e.stopPropagation()} />
       <div className={styles.itemContent}>
         <span className={`${styles.itemTitle} ${todo.is_completed ? styles.completed : ''}`}>{todo.title}</span>
-        <span className={styles.itemDate}>{todo.start_date} ~ {todo.end_date}</span>
+        <span className={styles.itemDate}>{formatDate(todo.start_date)} ~ {formatDate(todo.end_date)}</span>
       </div>
       <StatusBadge status={todo.status} />
     </div>

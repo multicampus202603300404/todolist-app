@@ -66,7 +66,11 @@ api.interceptors.response.use(
     } catch (refreshError) {
       processQueue(refreshError, null);
       useAuthStore.getState().clearAuth();
-      window.location.href = '/login';
+      // 이미 로그인/회원가입 페이지에 있으면 리다이렉트 하지 않음
+      const currentPath = window.location.pathname;
+      if (currentPath !== '/login' && currentPath !== '/register') {
+        window.location.href = '/login';
+      }
       return Promise.reject(refreshError);
     } finally {
       isRefreshing = false;

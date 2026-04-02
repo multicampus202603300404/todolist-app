@@ -10,6 +10,7 @@ import { StatusBadge } from '../components/StatusBadge';
 import { useTodoDetail } from '../hooks/useTodoDetail';
 import { useTodoDelete } from '../hooks/useTodoDelete';
 import { useTranslation } from '@/i18n';
+import { formatDate } from '@/utils/formatDate';
 import pageStyles from './TodoPages.module.css';
 import styles from './TodoDetail.module.css';
 
@@ -47,7 +48,7 @@ export function TodoDetailPage() {
           {todo.description && <p className={styles.description}>{todo.description}</p>}
 
           <div className={styles.meta}>
-            <div><span className={styles.label}>{t.todo.period}</span> {todo.start_date} ~ {todo.end_date}</div>
+            <div><span className={styles.label}>{t.todo.period}</span> {formatDate(todo.start_date)} ~ {formatDate(todo.end_date)}</div>
             <div><span className={styles.label}>{t.todo.completedAt}</span> {todo.completed_at ? new Date(todo.completed_at).toLocaleString('ko-KR') : '-'}</div>
             <div><span className={styles.label}>{t.todo.createdAt}</span> {new Date(todo.created_at).toLocaleString('ko-KR')}</div>
             <div><span className={styles.label}>{t.todo.updatedAt}</span> {new Date(todo.updated_at).toLocaleString('ko-KR')}</div>

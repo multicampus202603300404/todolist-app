@@ -13,12 +13,23 @@ export function useTodoFilters() {
   };
 
   const setFilters = (updates: Partial<TodoListParams>) => {
-    const next = new URLSearchParams(searchParams);
-    const merged = { ...filters, ...updates, page: updates.page || (updates.status !== undefined || updates.sort_by ? 1 : filters.page) };
-    (Object.entries(merged) as [string, unknown][]).forEach(([k, v]) => {
-      if (v !== undefined && v !== null && v !== '') next.set(k, String(v));
-      else next.delete(k);
-    });
+    const next = new URLSearchParams();
+
+    // status 변경 시 page를 1로 리셋
+    const shouldResetPage = 'status' in updates || 'sort_by' in updates || 'order' in updates;
+    const merged: TodoListParams = {
+      ...filters,
+      ...updates,
+      page: shouldResetPage ? 1 : (updates.page || filters.page),
+    };
+
+    // undefined/null/빈 문자열이 아닌 값만 URL에 설정
+    if (merged.status) next.set('status', merged.status);
+    if (merged.sort_by && merged.sort_by !== 'created_at') next.set('sort_by', merged.sort_by);
+    if (merged.order && merged.order !== 'desc') next.set('order', merged.order);
+    if (merged.page && merged.page > 1) next.set('page', String(merged.page));
+    if (merged.limit && merged.limit !== 20) next.set('limit', String(merged.limit));
+
     setSearchParams(next, { replace: true });
   };
 

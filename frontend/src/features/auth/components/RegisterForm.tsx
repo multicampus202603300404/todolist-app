@@ -1,15 +1,19 @@
 import { useState, type FormEvent } from 'react';
 import { Input } from '@/shared/Input';
 import { Button } from '@/shared/Button';
-import { useRegister } from '../hooks/useRegister';
 import { useTranslation } from '@/i18n';
 import styles from './AuthForm.module.css';
 
-export function RegisterForm() {
+interface RegisterFormProps {
+  onSubmit: (email: string, password: string) => void;
+  isLoading: boolean;
+  error: string | null;
+}
+
+export function RegisterForm({ onSubmit, isLoading, error }: RegisterFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const { register, isLoading, error } = useRegister();
   const t = useTranslation();
 
   const PW_RULES = [
@@ -22,12 +26,12 @@ export function RegisterForm() {
 
   const allRulesPassed = PW_RULES.every((r) => r.test(password));
   const passwordMatch = password === confirmPassword && confirmPassword.length > 0;
-  const canSubmit = email && allRulesPassed && passwordMatch;
+  const canSubmit = email && allRulesPassed && passwordMatch && !isLoading;
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!canSubmit) return;
-    register(email, password);
+    onSubmit(email, password);
   };
 
   return (
