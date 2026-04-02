@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const env = require('../config/env');
 const AppError = require('../utils/AppError');
-const { createUser, findUserByEmail, findUserById } = require('../queries/userQueries');
+const { createUser, findUserByEmail, findUserById, findUserByIdWithPassword, updateUserEmail, updateUserPassword } = require('../queries/userQueries');
 
 // 타이밍 공격 방지용 더미 해시 (사용자 미존재 시에도 일정한 연산 시간 보장)
 const DUMMY_HASH = '$2b$12$invalidsaltinvalidsaltinvali.invalidhashvalue00000000000';
@@ -71,4 +71,35 @@ async function refreshAccessToken(refreshToken) {
   return { accessToken };
 }
 
-module.exports = { register, login, generateTokens, refreshAccessToken };
+async function getProfile(userId) {
+  const user = await findUserById(userId);
+  if (!user) throw new AppError(404, 'USER_NOT_FOUND', '사용자를 찾을 수 없습니다');
+  return user;
+}
+
+async function updateProfile(userId, data) {
+  // 이메일 변경
+  if (data.email) {
+    const existing = await findUserByEmail(data.email);
+    if (existing && existing.id !== userId) {
+      throw new AppError(409, 'EMAIL_ALREADY_EXISTS', '이미 사용 중인 이메일입니다');
+    }
+    await updateUserEmail(userId, data.email);
+  }
+  // 비밀번호 변경
+  if (data.new_password) {
+    if (!data.current_password) {
+      throw new AppError(400, 'VALIDATION_ERROR', '현재 비밀번호를 입력해주세요');
+    }
+    const user = await findUserByIdWithPassword(userId);
+    const isMatch = await bcrypt.compare(data.current_password, user.password);
+    if (!isMatch) {
+      throw new AppError(401, 'INVALID_CREDENTIALS', '현재 비밀번호가 올바르지 않습니다');
+    }
+    const hashed = await bcrypt.hash(data.new_password, env.BCRYPT_COST_FACTOR);
+    await updateUserPassword(userId, hashed);
+  }
+  return await findUserById(userId);
+}
+
+module.exports = { register, login, generateTokens, refreshAccessToken, getProfile, updateProfile };

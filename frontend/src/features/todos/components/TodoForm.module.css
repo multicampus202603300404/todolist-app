@@ -1,0 +1,5 @@
+.form { display: flex; flex-direction: column; gap: var(--space-4); }
+.count { text-align: right; font-size: var(--font-size-xs); color: var(--color-gray-500); margin-top: calc(var(--space-1) * -1); }
+.dateRow { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+@media (max-width: 767px) { .dateRow { grid-template-columns: 1fr; } }
+.actions { display: flex; gap: var(--space-3); justify-content: flex-end; margin-top: var(--space-4); }

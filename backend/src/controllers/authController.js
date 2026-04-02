@@ -50,4 +50,18 @@ async function refresh(req, res, next) {
   }
 }
 
-module.exports = { register, login, logout, refresh };
+async function getProfile(req, res, next) {
+  try {
+    const user = await authService.getProfile(req.user.id);
+    res.status(200).json(user);
+  } catch (err) { next(err); }
+}
+
+async function updateProfile(req, res, next) {
+  try {
+    const user = await authService.updateProfile(req.user.id, req.body);
+    res.status(200).json(user);
+  } catch (err) { next(err); }
+}
+
+module.exports = { register, login, logout, refresh, getProfile, updateProfile };

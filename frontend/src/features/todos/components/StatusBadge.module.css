@@ -1,0 +1,6 @@
+.badge { display: inline-block; padding: var(--space-1) var(--space-2); border-radius: var(--radius-full); font-size: var(--font-size-xs); font-weight: 600; white-space: nowrap; }
+.UPCOMING { background: var(--status-upcoming-bg); color: var(--status-upcoming-text); }
+.IN_PROGRESS { background: var(--status-in-progress-bg); color: var(--status-in-progress-text); }
+.OVERDUE { background: var(--status-overdue-bg); color: var(--status-overdue-text); }
+.COMPLETED_ON_TIME { background: var(--status-completed-on-time-bg); color: var(--status-completed-on-time-text); }
+.COMPLETED_LATE { background: var(--status-completed-late-bg); color: var(--status-completed-late-text); }

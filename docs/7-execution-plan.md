@@ -357,12 +357,12 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 프로젝트 생성, 경로 별칭(@/*), tsconfig strict 모드 설정
 - **산출물**: `frontend/vite.config.ts`, `frontend/tsconfig.json`, `frontend/package.json`
 - **완료 조건**:
-  - [ ] `npm run dev` 정상 기동
-  - [ ] `@/*` 경로 별칭 → `src/*` 해석
-  - [ ] TypeScript strict 모드 활성화
-  - [ ] `npm run build` 에러 없이 완료
+  - [x] `npm run dev` 정상 기동
+  - [x] `@/*` 경로 별칭 → `src/*` 해석
+  - [x] TypeScript strict 모드 활성화
+  - [x] `npm run build` 에러 없이 완료
 - **의존성**:
-  - [ ] 없음 (독립 실행 가능)
+  - [x] 없음 (독립 실행 가능)
 
 ---
 
@@ -370,10 +370,10 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: Zustand, TanStack Query, axios, React Router 설치, 기능 기반 디렉토리 골격 생성
 - **산출물**: `frontend/package.json` 업데이트, `frontend/src/` 하위 디렉토리
 - **완료 조건**:
-  - [ ] zustand, @tanstack/react-query, axios, react-router-dom 설치
-  - [ ] app/, features/auth/, features/todos/, shared/, stores/, api/, types/, styles/ 생성
+  - [x] zustand, @tanstack/react-query, axios, react-router-dom 설치
+  - [x] app/, features/auth/, features/todos/, shared/, stores/, api/, types/, styles/ 생성
 - **의존성**:
-  - [ ] FE-01 완료
+  - [x] FE-01 완료
 
 ---
 
@@ -381,11 +381,11 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 반응형 브레이크포인트, 색상 팔레트, 타이포그래피 CSS 커스텀 프로퍼티 정의
 - **산출물**: `frontend/src/styles/global.css`, `frontend/src/styles/variables.css`, `frontend/src/styles/reset.css`
 - **완료 조건**:
-  - [ ] CSS 변수: primary, neutral, danger, success 색상 정의
-  - [ ] 반응형 브레이크포인트: 360px / 768px / 1280px
-  - [ ] 브라우저 기본 스타일 초기화 적용
+  - [x] CSS 변수: primary, neutral, danger, success 색상 정의
+  - [x] 반응형 브레이크포인트: 360px / 768px / 1280px
+  - [x] 브라우저 기본 스타일 초기화 적용
 - **의존성**:
-  - [ ] FE-02 완료
+  - [x] FE-02 완료
 
 ---
 
@@ -393,13 +393,13 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: Todo, TodoStatus, ApiResponse, AuthUser 등 프로젝트 전반 타입 정의
 - **산출물**: `frontend/src/types/auth.ts`, `frontend/src/types/todo.ts`, `frontend/src/types/api.ts`
 - **완료 조건**:
-  - [ ] `Todo` 인터페이스 — 전체 필드 + status
-  - [ ] `TodoStatus` — 5종 유니온 리터럴 타입
-  - [ ] `TodoListParams` — status, sort_by, order, page, limit
-  - [ ] `ApiResponse<T>`, `PaginatedResponse<T>` 제네릭 타입
-  - [ ] `AuthUser`, `LoginCredentials`, `RegisterCredentials` 타입
+  - [x] `Todo` 인터페이스 — 전체 필드 + status
+  - [x] `TodoStatus` — 5종 유니온 리터럴 타입
+  - [x] `TodoListParams` — status, sort_by, order, page, limit
+  - [x] `ApiResponse<T>`, `PaginatedResponse<T>` 제네릭 타입
+  - [x] `AuthUser`, `LoginCredentials`, `RegisterCredentials` 타입
 - **의존성**:
-  - [ ] FE-02 완료
+  - [x] FE-02 완료
 
 ---
 
@@ -407,14 +407,14 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: axios 기본 설정, Authorization 헤더 주입, 401 시 토큰 갱신 + 요청 재시도
 - **산출물**: `frontend/src/api/axiosInstance.ts`, `frontend/src/api/interceptors.ts`
 - **완료 조건**:
-  - [ ] baseURL = VITE_API_BASE_URL 환경변수 반영
-  - [ ] 요청 인터셉터: authStore에서 accessToken 읽어 헤더 추가
-  - [ ] 401 수신 시 /api/auth/refresh 호출 → 원래 요청 재시도
-  - [ ] 갱신 중 동시 401 요청 큐잉 처리
-  - [ ] refresh 실패 시 authStore 초기화 → `/login` 리다이렉트
-  - [ ] withCredentials: true (httpOnly 쿠키 전송)
+  - [x] baseURL = VITE_API_BASE_URL 환경변수 반영
+  - [x] 요청 인터셉터: authStore에서 accessToken 읽어 헤더 추가
+  - [x] 401 수신 시 /api/auth/refresh 호출 → 원래 요청 재시도
+  - [x] 갱신 중 동시 401 요청 큐잉 처리
+  - [x] refresh 실패 시 authStore 초기화 → `/login` 리다이렉트
+  - [x] withCredentials: true (httpOnly 쿠키 전송)
 - **의존성**:
-  - [ ] FE-04 완료
+  - [x] FE-04 완료
 
 ---
 
@@ -422,11 +422,11 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: auth, todos 도메인별 타입 지정된 API 호출 함수
 - **산출물**: `frontend/src/api/auth.api.ts`, `frontend/src/api/todos.api.ts`
 - **완료 조건**:
-  - [ ] authApi: register, login, logout, refresh
-  - [ ] todosApi: createTodo, getTodos, getTodoById, updateTodo, deleteTodo, completeTodo, uncompleteTodo, getStatistics
-  - [ ] 모든 함수 TypeScript 반환 타입 명시
+  - [x] authApi: register, login, logout, refresh
+  - [x] todosApi: createTodo, getTodos, getTodoById, updateTodo, deleteTodo, completeTodo, uncompleteTodo, getStatistics
+  - [x] 모든 함수 TypeScript 반환 타입 명시
 - **의존성**:
-  - [ ] FE-05 완료
+  - [x] FE-05 완료
 
 ---
 
@@ -434,11 +434,11 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: Access Token(메모리), 사용자 정보, 로그인 상태 관리 스토어
 - **산출물**: `frontend/src/stores/authStore.ts`
 - **완료 조건**:
-  - [ ] accessToken, user, isAuthenticated 상태 정의
-  - [ ] setToken, setUser, clearAuth 액션 구현
-  - [ ] accessToken은 메모리에만 저장 (localStorage 사용 금지)
+  - [x] accessToken, user, isAuthenticated 상태 정의
+  - [x] setToken, setUser, clearAuth 액션 구현
+  - [x] accessToken은 메모리에만 저장 (localStorage 사용 금지)
 - **의존성**:
-  - [ ] FE-04 완료
+  - [x] FE-04 완료
 
 ---
 
@@ -446,12 +446,12 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: QueryClient 생성, staleTime/retry 정책, QueryClientProvider 적용
 - **산출물**: `frontend/src/app/queryClient.ts`, `frontend/src/app/App.tsx`
 - **완료 조건**:
-  - [ ] staleTime 5분, retry 1회 설정
-  - [ ] 401 에러 시 retry 비활성화
-  - [ ] QueryClientProvider 최상위 래핑
-  - [ ] 개발 환경에서만 React Query Devtools 렌더링
+  - [x] staleTime 5분, retry 1회 설정
+  - [x] 401 에러 시 retry 비활성화
+  - [x] QueryClientProvider 최상위 래핑
+  - [x] 개발 환경에서만 React Query Devtools 렌더링
 - **의존성**:
-  - [ ] FE-07 완료
+  - [x] FE-07 완료
 
 ---
 
@@ -459,12 +459,12 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 라우트 정의, 인증 여부 기반 접근 제어, ProtectedRoute 컴포넌트
 - **산출물**: `frontend/src/app/Router.tsx`, `frontend/src/app/ProtectedRoute.tsx`
 - **완료 조건**:
-  - [ ] /login, /register → 비인증 사용자만
-  - [ ] /, /todos/:id, /todos/new, /todos/:id/edit, /statistics → 인증 사용자만
-  - [ ] 미인증 → /login 리다이렉트
-  - [ ] 인증 상태에서 /login → / 리다이렉트
+  - [x] /login, /register → 비인증 사용자만
+  - [x] /, /todos/:id, /todos/new, /todos/:id/edit, /statistics → 인증 사용자만
+  - [x] 미인증 → /login 리다이렉트
+  - [x] 인증 상태에서 /login → / 리다이렉트
 - **의존성**:
-  - [ ] FE-07 완료
+  - [x] FE-07 완료
 
 ---
 
@@ -472,11 +472,11 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: variant(primary/secondary/danger/ghost), size, loading 상태 지원
 - **산출물**: `frontend/src/shared/Button/Button.tsx`, `Button.module.css`
 - **완료 조건**:
-  - [ ] variant 4종 + size 3종 구현
-  - [ ] isLoading 시 스피너 + 비활성화
-  - [ ] 키보드 접근성 (Tab, Enter, Space)
+  - [x] variant 4종 + size 3종 구현
+  - [x] isLoading 시 스피너 + 비활성화
+  - [x] 키보드 접근성 (Tab, Enter, Space)
 - **의존성**:
-  - [ ] FE-03 완료
+  - [x] FE-03 완료
 
 ---
 
@@ -484,12 +484,12 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: label, 에러 메시지, 필수 표시, ref 전달 지원 폼 입력 컴포넌트
 - **산출물**: `frontend/src/shared/Input/Input.tsx`, `Textarea.tsx`, `Input.module.css`
 - **완료 조건**:
-  - [ ] label, errorMessage, helperText, required prop 지원
-  - [ ] React.forwardRef 구현
-  - [ ] Textarea maxLength + 글자 수 카운터
-  - [ ] 모바일 최소 44px 터치 타겟
+  - [x] label, errorMessage, helperText, required prop 지원
+  - [x] React.forwardRef 구현
+  - [x] Textarea maxLength + 글자 수 카운터
+  - [x] 모바일 최소 44px 터치 타겟
 - **의존성**:
-  - [ ] FE-03 완료
+  - [x] FE-03 완료
 
 ---
 
@@ -497,13 +497,13 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: Portal 기반 확인/취소 다이얼로그 (완료 처리, 삭제 확인용)
 - **산출물**: `frontend/src/shared/Dialog/Dialog.tsx`, `ConfirmDialog.tsx`, `Dialog.module.css`
 - **완료 조건**:
-  - [ ] createPortal로 body에 렌더링
-  - [ ] ESC 키 닫힘, body 스크롤 잠금
-  - [ ] ConfirmDialog: title, description, confirmLabel, onConfirm, onCancel
-  - [ ] ARIA role="dialog", aria-modal="true"
-  - [ ] 포커스 트랩 구현
+  - [x] createPortal로 body에 렌더링
+  - [x] ESC 키 닫힘, body 스크롤 잠금
+  - [x] ConfirmDialog: title, description, confirmLabel, onConfirm, onCancel
+  - [x] ARIA role="dialog", aria-modal="true"
+  - [x] 포커스 트랩 구현
 - **의존성**:
-  - [ ] FE-10 완료
+  - [x] FE-10 완료
 
 ---
 
@@ -511,12 +511,12 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: success/error/warning/info Toast 시스템, Zustand 기반 전역 호출
 - **산출물**: `frontend/src/shared/Toast/Toast.tsx`, `ToastContainer.tsx`, `frontend/src/stores/toastStore.ts`
 - **완료 조건**:
-  - [ ] variant 4종, 기본 3초 auto-dismiss
-  - [ ] toastStore.showToast(message, variant) 전역 호출
-  - [ ] 여러 토스트 스택 표시
-  - [ ] ToastContainer가 App.tsx에 등록
+  - [x] variant 4종, 기본 3초 auto-dismiss
+  - [x] toastStore.showToast(message, variant) 전역 호출
+  - [x] 여러 토스트 스택 표시
+  - [x] ToastContainer가 App.tsx에 등록
 - **의존성**:
-  - [ ] FE-07, FE-10 완료
+  - [x] FE-07, FE-10 완료
 
 ---
 
@@ -524,11 +524,11 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 로딩 스피너(size별), 빈 목록 상태 안내 컴포넌트
 - **산출물**: `frontend/src/shared/LoadingSpinner/`, `frontend/src/shared/EmptyState/`
 - **완료 조건**:
-  - [ ] LoadingSpinner size prop (sm/md/lg)
-  - [ ] EmptyState: icon, title, description, action prop
-  - [ ] prefers-reduced-motion 미디어 쿼리 적용
+  - [x] LoadingSpinner size prop (sm/md/lg)
+  - [x] EmptyState: icon, title, description, action prop
+  - [x] prefers-reduced-motion 미디어 쿼리 적용
 - **의존성**:
-  - [ ] FE-03 완료
+  - [x] FE-03 완료
 
 ---
 
@@ -536,14 +536,14 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 이메일/비밀번호 폼, 로그인 API 호출, 계정 잠금(423) 안내, 회원가입 링크
 - **산출물**: `frontend/src/features/auth/pages/LoginPage.tsx`, `LoginForm.tsx`, `useLogin.ts`
 - **완료 조건**:
-  - [ ] 이메일 형식 클라이언트 검증
-  - [ ] 로그인 성공 → authStore 저장 + / 이동
-  - [ ] 401 실패 → Toast 에러 표시
-  - [ ] 423 잠금 → 잠금 안내 메시지 표시
-  - [ ] 제출 중 로딩 상태 (중복 제출 방지)
-  - [ ] 반응형 레이아웃 (360px ~ 1280px+)
+  - [x] 이메일 형식 클라이언트 검증
+  - [x] 로그인 성공 → authStore 저장 + / 이동
+  - [x] 401 실패 → Toast 에러 표시
+  - [x] 423 잠금 → 잠금 안내 메시지 표시
+  - [x] 제출 중 로딩 상태 (중복 제출 방지)
+  - [x] 반응형 레이아웃 (360px ~ 1280px+)
 - **의존성**:
-  - [ ] FE-06, FE-07, FE-09, FE-11, FE-13 완료
+  - [x] FE-06, FE-07, FE-09, FE-11, FE-13 완료
 
 ---
 
@@ -551,13 +551,13 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 이메일/비밀번호/비밀번호 확인, 비밀번호 정책 실시간 체크, 이메일 인증 안내
 - **산출물**: `frontend/src/features/auth/pages/RegisterPage.tsx`, `RegisterForm.tsx`, `useRegister.ts`
 - **완료 조건**:
-  - [ ] 비밀번호 정책 정규식: 8~20자, 대/소/숫자/특수문자 각 1자 이상
-  - [ ] 비밀번호 불일치 → "비밀번호가 일치하지 않습니다" 표시
-  - [ ] 실시간 정책 충족 체크리스트 UI
-  - [ ] 409 중복 → 이메일 필드 에러 표시
-  - [ ] 성공 → 이메일 인증 안내 화면 전환
+  - [x] 비밀번호 정책 정규식: 8~20자, 대/소/숫자/특수문자 각 1자 이상
+  - [x] 비밀번호 불일치 → "비밀번호가 일치하지 않습니다" 표시
+  - [x] 실시간 정책 충족 체크리스트 UI
+  - [x] 409 중복 → 이메일 필드 에러 표시
+  - [x] 성공 → 이메일 인증 안내 화면 전환
 - **의존성**:
-  - [ ] FE-06, FE-09, FE-11, FE-13 완료
+  - [x] FE-06, FE-09, FE-11, FE-13 완료
 
 ---
 
@@ -565,12 +565,12 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 목록 조회 훅 + 필터/정렬/페이지 URL 파라미터 동기화
 - **산출물**: `frontend/src/features/todos/hooks/useTodoList.ts`, `useTodoFilters.ts`
 - **완료 조건**:
-  - [ ] useTodoList — TodoListParams 기반 useQuery
-  - [ ] 필터/정렬/페이지 변경 → 쿼리 키 변경 → 자동 재조회
-  - [ ] useTodoFilters — URL searchParams 양방향 동기화
-  - [ ] 로딩/에러/빈 목록 상태 구분 반환
+  - [x] useTodoList — TodoListParams 기반 useQuery
+  - [x] 필터/정렬/페이지 변경 → 쿼리 키 변경 → 자동 재조회
+  - [x] useTodoFilters — URL searchParams 양방향 동기화
+  - [x] 로딩/에러/빈 목록 상태 구분 반환
 - **의존성**:
-  - [ ] FE-06, FE-08 완료
+  - [x] FE-06, FE-08 완료
 
 ---
 
@@ -578,17 +578,17 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 할일 목록, 상태 필터(5종+전체), 정렬, 페이지네이션, 체크박스 완료/해제, 로그아웃
 - **산출물**: `frontend/src/features/todos/pages/TodoListPage.tsx`, `TodoListItem.tsx`, `TodoFilterBar.tsx`, `TodoSortControl.tsx`, `TodoPagination.tsx`
 - **완료 조건**:
-  - [ ] 상태 필터 탭/버튼 (5종 + 전체)
-  - [ ] 정렬 기준(4종) × 방향(2종) 선택
-  - [ ] 페이지네이션 20건 단위, 하단 컨트롤
-  - [ ] 체크박스 완료/해제 → 목록 즉시 갱신
-  - [ ] 목록 행 클릭 → SCR-05 이동
-  - [ ] 등록 버튼 → SCR-04 이동
-  - [ ] 로그아웃 → authStore 초기화 + /login
-  - [ ] 빈 목록 → EmptyState 표시
-  - [ ] 반응형 레이아웃
+  - [x] 상태 필터 탭/버튼 (5종 + 전체)
+  - [x] 정렬 기준(4종) × 방향(2종) 선택
+  - [x] 페이지네이션 20건 단위, 하단 컨트롤
+  - [x] 체크박스 완료/해제 → 목록 즉시 갱신
+  - [x] 목록 행 클릭 → SCR-05 이동
+  - [x] 등록 버튼 → SCR-04 이동
+  - [x] 로그아웃 → authStore 초기화 + /login
+  - [x] 빈 목록 → EmptyState 표시
+  - [x] 반응형 레이아웃
 - **의존성**:
-  - [ ] FE-12, FE-13, FE-14, FE-17 완료
+  - [x] FE-12, FE-13, FE-14, FE-17 완료
 
 ---
 
@@ -596,13 +596,13 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 제목/설명/시작일/종료일 폼, TodoForm 재사용 컴포넌트
 - **산출물**: `frontend/src/features/todos/pages/TodoCreatePage.tsx`, `TodoForm.tsx`, `useTodoCreate.ts`
 - **완료 조건**:
-  - [ ] 제목 필수, 200자 제한 + 글자 수 표시
-  - [ ] 설명 2000자 제한
-  - [ ] 종료일 < 시작일 → 유효성 에러
-  - [ ] 성공 → Toast + SCR-03 이동 + 캐시 무효화
-  - [ ] 취소 → 이전 화면 이동
+  - [x] 제목 필수, 200자 제한 + 글자 수 표시
+  - [x] 설명 2000자 제한
+  - [x] 종료일 < 시작일 → 유효성 에러
+  - [x] 성공 → Toast + SCR-03 이동 + 캐시 무효화
+  - [x] 취소 → 이전 화면 이동
 - **의존성**:
-  - [ ] FE-06, FE-08, FE-11, FE-13 완료
+  - [x] FE-06, FE-08, FE-11, FE-13 완료
 
 ---
 
@@ -610,14 +610,14 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 상세 정보, 완료 처리/해제(확인 다이얼로그), 삭제(확인 다이얼로그), 수정 진입
 - **산출물**: `frontend/src/features/todos/pages/TodoDetailPage.tsx`, `useTodoDetail.ts`, `useTodoDelete.ts`
 - **완료 조건**:
-  - [ ] URL :id로 상세 조회
-  - [ ] 완료/해제 → 확인 다이얼로그 → PATCH API → 화면 갱신
-  - [ ] 삭제 → 확인 다이얼로그 → DELETE API → SCR-03 이동
-  - [ ] 수정 버튼 → SCR-06 이동
-  - [ ] 404 응답 → 에러 처리 또는 목록 리다이렉트
-  - [ ] 작업 후 관련 캐시 무효화
+  - [x] URL :id로 상세 조회
+  - [x] 완료/해제 → 확인 다이얼로그 → PATCH API → 화면 갱신
+  - [x] 삭제 → 확인 다이얼로그 → DELETE API → SCR-03 이동
+  - [x] 수정 버튼 → SCR-06 이동
+  - [x] 404 응답 → 에러 처리 또는 목록 리다이렉트
+  - [x] 작업 후 관련 캐시 무효화
 - **의존성**:
-  - [ ] FE-06, FE-08, FE-12, FE-13 완료
+  - [x] FE-06, FE-08, FE-12, FE-13 완료
 
 ---
 
@@ -625,12 +625,12 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 기존 데이터 프리필, TodoForm 재사용, 수정 후 저장
 - **산출물**: `frontend/src/features/todos/pages/TodoEditPage.tsx`, `useTodoUpdate.ts`
 - **완료 조건**:
-  - [ ] URL :id로 기존 데이터 조회 → 폼 프리필
-  - [ ] TodoForm 재사용 (등록/수정 모드 동일)
-  - [ ] 성공 → Toast + SCR-05 이동 + 캐시 무효화
-  - [ ] 취소 → SCR-05 이동
+  - [x] URL :id로 기존 데이터 조회 → 폼 프리필
+  - [x] TodoForm 재사용 (등록/수정 모드 동일)
+  - [x] 성공 → Toast + SCR-05 이동 + 캐시 무효화
+  - [x] 취소 → SCR-05 이동
 - **의존성**:
-  - [ ] FE-19, FE-20 완료
+  - [x] FE-19, FE-20 완료
 
 ---
 
@@ -638,11 +638,11 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: GET /api/todos/statistics 호출 커스텀 훅
 - **산출물**: `frontend/src/features/todos/hooks/useTodoStatistics.ts`, `frontend/src/types/statistics.ts`
 - **완료 조건**:
-  - [ ] TodoStatistics 타입 정의 (전체/상태별/완료율/기간내완료율/기간초과)
-  - [ ] useTodoStatistics — useQuery, staleTime 1분
-  - [ ] 로딩/에러 상태 반환
+  - [x] TodoStatistics 타입 정의 (전체/상태별/완료율/기간내완료율/기간초과)
+  - [x] useTodoStatistics — useQuery, staleTime 1분
+  - [x] 로딩/에러 상태 반환
 - **의존성**:
-  - [ ] FE-06, FE-08 완료
+  - [x] FE-06, FE-08 완료
 
 ---
 
@@ -650,13 +650,13 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 5가지 지표 카드 표시, 상태 카드 클릭 시 SCR-03 필터 이동
 - **산출물**: `frontend/src/features/todos/pages/StatisticsPage.tsx`, `StatCard.tsx`
 - **완료 조건**:
-  - [ ] 전체 건수, 상태별 5종, 완료율(%), 기간 내 완료율(%), 기간 초과 건수 표시
-  - [ ] 상태 카드 클릭 → SCR-03 (status 쿼리 파라미터 포함) 이동
-  - [ ] 완료율 progress bar 시각화
-  - [ ] 반응형 그리드 (모바일 1열, 태블릿 2열, 데스크탑 3열)
-  - [ ] 데이터 로딩 중 스켈레톤 카드 표시
+  - [x] 전체 건수, 상태별 5종, 완료율(%), 기간 내 완료율(%), 기간 초과 건수 표시
+  - [x] 상태 카드 클릭 → SCR-03 (status 쿼리 파라미터 포함) 이동
+  - [x] 완료율 progress bar 시각화
+  - [x] 반응형 그리드 (모바일 1열, 태블릿 2열, 데스크탑 3열)
+  - [x] 데이터 로딩 중 스켈레톤 카드 표시
 - **의존성**:
-  - [ ] FE-14, FE-22 완료
+  - [x] FE-14, FE-22 완료
 
 ---
 

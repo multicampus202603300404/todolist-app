@@ -1,0 +1,32 @@
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-4); flex-wrap: wrap; gap: var(--space-3); }
+.headerTitle { font-size: var(--font-size-2xl); font-weight: 700; }
+.headerActions { display: flex; gap: var(--space-2); }
+
+.filterBar { display: flex; gap: var(--space-2); overflow-x: auto; padding-bottom: var(--space-2); margin-bottom: var(--space-4); }
+.filterBtn { padding: var(--space-2) var(--space-3); border: 1px solid var(--color-gray-300); border-radius: var(--radius-full); font-size: var(--font-size-sm); white-space: nowrap; background: var(--color-white); cursor: pointer; transition: all var(--transition-fast); }
+.filterBtn:hover { background: var(--color-gray-100); }
+.active { background: var(--color-primary); color: var(--color-white); border-color: var(--color-primary); }
+.active:hover { background: var(--color-primary-hover); }
+
+.sortControl { display: flex; gap: var(--space-2); margin-bottom: var(--space-4); }
+.sortControl select { padding: var(--space-2) var(--space-3); border: 1px solid var(--color-gray-300); border-radius: var(--radius-md); font-size: var(--font-size-sm); background: var(--color-white); min-height: 36px; }
+
+.list { display: flex; flex-direction: column; gap: 1px; background: var(--color-gray-200); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); overflow: hidden; }
+
+.item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); background: var(--color-white); cursor: pointer; transition: background var(--transition-fast); }
+.item:hover { background: var(--color-gray-50); }
+.checkbox { width: 20px; height: 20px; cursor: pointer; flex-shrink: 0; }
+.itemContent { flex: 1; min-width: 0; }
+.itemTitle { display: block; font-weight: 500; margin-bottom: var(--space-1); }
+.completed { text-decoration: line-through; color: var(--color-gray-500); }
+.itemDate { font-size: var(--font-size-xs); color: var(--color-gray-500); }
+
+.pagination { display: flex; justify-content: center; gap: var(--space-1); margin-top: var(--space-6); }
+.pagination button { padding: var(--space-2) var(--space-3); border: 1px solid var(--color-gray-300); border-radius: var(--radius-md); background: var(--color-white); cursor: pointer; min-width: 36px; font-size: var(--font-size-sm); }
+.pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
+.activePage { background: var(--color-primary) !important; color: var(--color-white) !important; border-color: var(--color-primary) !important; }
+
+@media (max-width: 767px) {
+  .item { flex-wrap: wrap; }
+  .sortControl { flex-direction: column; }
+}

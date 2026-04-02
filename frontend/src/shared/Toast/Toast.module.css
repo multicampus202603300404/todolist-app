@@ -1,0 +1,11 @@
+.container { position: fixed; bottom: var(--space-4); right: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); z-index: var(--z-toast); max-width: 360px; }
+@media (max-width: 767px) { .container { left: var(--space-4); right: var(--space-4); bottom: var(--space-4); max-width: none; } }
+.toast { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); font-size: var(--font-size-sm); box-shadow: var(--shadow-md); animation: slideIn 0.2s ease; color: var(--color-white); }
+.success { background: var(--color-success); }
+.error { background: var(--color-danger); }
+.warning { background: var(--color-warning); color: var(--color-gray-900); }
+.info { background: var(--color-info); }
+.close { background: none; border: none; color: inherit; font-size: var(--font-size-lg); cursor: pointer; padding: 0; line-height: 1; opacity: 0.8; }
+.close:hover { opacity: 1; }
+@keyframes slideIn { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .toast { animation: none; } }

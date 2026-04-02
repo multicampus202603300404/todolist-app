@@ -1,0 +1,19 @@
+.totalCard { text-align: center; padding: var(--space-4); background: var(--color-gray-50); border-radius: var(--radius-md); font-size: var(--font-size-lg); margin-bottom: var(--space-6); }
+.statusGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-3); margin-bottom: var(--space-6); }
+.statCard { padding: var(--space-4); border-radius: var(--radius-md); cursor: pointer; text-align: center; transition: transform var(--transition-fast), box-shadow var(--transition-fast); }
+.statCard:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.statLabel { font-size: var(--font-size-sm); margin-bottom: var(--space-2); }
+.statCount { font-size: var(--font-size-2xl); font-weight: 700; }
+.UPCOMING { background: var(--status-upcoming-bg); color: var(--status-upcoming-text); }
+.IN_PROGRESS { background: var(--status-in-progress-bg); color: var(--status-in-progress-text); }
+.OVERDUE { background: var(--status-overdue-bg); color: var(--status-overdue-text); }
+.COMPLETED_ON_TIME { background: var(--status-completed-on-time-bg); color: var(--status-completed-on-time-text); }
+.COMPLETED_LATE { background: var(--status-completed-late-bg); color: var(--status-completed-late-text); }
+.rateSection { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-6); }
+@media (max-width: 767px) { .rateSection { grid-template-columns: 1fr; } }
+.rateCard { padding: var(--space-4); background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); }
+.rateLabel { font-size: var(--font-size-sm); color: var(--color-gray-600); margin-bottom: var(--space-2); }
+.progressBar { height: 8px; background: var(--color-gray-200); border-radius: var(--radius-full); overflow: hidden; margin-bottom: var(--space-2); }
+.progressFill { height: 100%; background: var(--color-success); border-radius: var(--radius-full); transition: width var(--transition-normal); }
+.rateValue { font-size: var(--font-size-xl); font-weight: 700; }
+.overdueCard { text-align: center; padding: var(--space-4); background: var(--color-danger-light); color: var(--color-danger); border-radius: var(--radius-md); }

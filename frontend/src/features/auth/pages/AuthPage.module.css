@@ -1,0 +1,4 @@
+.page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: var(--space-4); background: var(--color-gray-50); }
+.card { background: var(--color-white); border-radius: var(--radius-lg); padding: var(--space-8); width: 100%; max-width: 420px; box-shadow: var(--shadow-md); }
+.link { text-align: center; margin-top: var(--space-4); font-size: var(--font-size-sm); color: var(--color-gray-600); }
+.link a { color: var(--color-primary); font-weight: 600; text-decoration: underline; }

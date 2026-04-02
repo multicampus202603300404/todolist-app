@@ -1,0 +1,2 @@
+.toggle { font-size: 1.25rem; padding: var(--space-2); border-radius: var(--radius-md); background: transparent; cursor: pointer; transition: background var(--transition-fast); line-height: 1; border: none; }
+.toggle:hover { background: var(--color-gray-200); }
