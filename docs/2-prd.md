@@ -243,9 +243,10 @@ Request Body:
 
 Response 200:
 {
-  "access_token": "string (JWT, 30분)",
-  "refresh_token": "string (7일)"
+  "access_token": "string (JWT, 30분)"
 }
+※ Refresh Token은 응답 body에 포함되지 않으며
+  httpOnly; Secure; SameSite=Strict 쿠키(Set-Cookie 헤더)로만 전달된다.
 
 Error:
   401 - 이메일 또는 비밀번호 불일치
@@ -255,10 +256,8 @@ Error:
 **POST /api/auth/logout**
 
 ```
-Request Body:
-{
-  "refresh_token": "string"
-}
+Request Body: 없음
+※ Refresh Token은 httpOnly Cookie에서 자동 전송된다.
 
 Response 200:
 {
@@ -269,10 +268,8 @@ Response 200:
 **POST /api/auth/refresh**
 
 ```
-Request Body:
-{
-  "refresh_token": "string"
-}
+Request Body: 없음
+※ Refresh Token은 httpOnly Cookie에서 자동 전송된다.
 
 Response 200:
 {

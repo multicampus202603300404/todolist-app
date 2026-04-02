@@ -32,14 +32,14 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: pg Pool 인스턴스 생성, 연결 검증, graceful shutdown, query 래퍼 함수 구현
 - **산출물**: `backend/src/config/db.js`
 - **완료 조건**:
-  - [ ] `new Pool({ connectionString: DATABASE_URL, max: 10 })` 설정 완료
-  - [ ] `pool.on('error')` 이벤트 핸들러 등록
-  - [ ] 서버 시작 시 연결 검증 로직 구현
-  - [ ] SIGTERM/SIGINT 수신 시 `pool.end()` graceful shutdown 처리
-  - [ ] DATABASE_URL 미설정 시 프로세스 종료
-  - [ ] `query(text, params)` 래퍼 함수 export
+  - [x] `new Pool({ connectionString: DATABASE_URL, max: 10 })` 설정 완료
+  - [x] `pool.on('error')` 이벤트 핸들러 등록
+  - [x] 서버 시작 시 연결 검증 로직 구현
+  - [x] SIGTERM/SIGINT 수신 시 `pool.end()` graceful shutdown 처리
+  - [x] DATABASE_URL 미설정 시 프로세스 종료
+  - [x] `query(text, params)` 래퍼 함수 export
 - **의존성**:
-  - [ ] 없음 (독립 실행 가능)
+  - [x] 없음 (독립 실행 가능)
 
 ---
 
@@ -47,13 +47,13 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: migrations/ 디렉토리의 SQL 파일을 순서대로 실행하는 러너. `schema_migrations` 테이블로 멱등성 보장
 - **산출물**: `backend/src/migrations/migrate.js`
 - **완료 조건**:
-  - [ ] `schema_migrations` 추적 테이블 자동 생성
-  - [ ] NNN_description.sql 파일명 오름차순 순차 실행
-  - [ ] 이미 적용된 파일 건너뜀 (멱등성)
-  - [ ] 각 마이그레이션 트랜잭션 내 실행, 실패 시 롤백
-  - [ ] `npm run migrate` 스크립트 등록
+  - [x] `schema_migrations` 추적 테이블 자동 생성
+  - [x] NNN_description.sql 파일명 오름차순 순차 실행
+  - [x] 이미 적용된 파일 건너뜀 (멱등성)
+  - [x] 각 마이그레이션 트랜잭션 내 실행, 실패 시 롤백
+  - [x] `npm run migrate` 스크립트 등록
 - **의존성**:
-  - [ ] DB-01 완료
+  - [x] DB-01 완료
 
 ---
 
@@ -61,10 +61,10 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: `gen_random_uuid()` 사용을 위한 pgcrypto 확장 활성화
 - **산출물**: `backend/src/migrations/001_enable_pgcrypto.sql`
 - **완료 조건**:
-  - [ ] `CREATE EXTENSION IF NOT EXISTS "pgcrypto"` 포함
-  - [ ] `SELECT gen_random_uuid()` 정상 실행 확인
+  - [x] `CREATE EXTENSION IF NOT EXISTS "pgcrypto"` 포함
+  - [x] `SELECT gen_random_uuid()` 정상 실행 확인
 - **의존성**:
-  - [ ] DB-02 완료
+  - [x] DB-02 완료
 
 ---
 
@@ -72,13 +72,13 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: users DDL 마이그레이션 (UUID PK, email UNIQUE, password bcrypt hash, created_at)
 - **산출물**: `backend/src/migrations/002_create_users.sql`
 - **완료 조건**:
-  - [ ] `id UUID PRIMARY KEY DEFAULT gen_random_uuid()`
-  - [ ] `email VARCHAR(254) UNIQUE NOT NULL`
-  - [ ] `password VARCHAR(60) NOT NULL`
-  - [ ] `created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()`
-  - [ ] `CREATE TABLE IF NOT EXISTS` 멱등성 보장
+  - [x] `id UUID PRIMARY KEY DEFAULT gen_random_uuid()`
+  - [x] `email VARCHAR(254) UNIQUE NOT NULL`
+  - [x] `password VARCHAR(60) NOT NULL`
+  - [x] `created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()`
+  - [x] `CREATE TABLE IF NOT EXISTS` 멱등성 보장
 - **의존성**:
-  - [ ] DB-03 완료
+  - [x] DB-03 완료
 
 ---
 
@@ -86,18 +86,18 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: todos DDL 마이그레이션 (FK CASCADE, 날짜 컬럼, status 컬럼 미포함)
 - **산출물**: `backend/src/migrations/003_create_todos.sql`
 - **완료 조건**:
-  - [ ] `id UUID PRIMARY KEY DEFAULT gen_random_uuid()`
-  - [ ] `user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE`
-  - [ ] `title VARCHAR(200) NOT NULL`
-  - [ ] `description TEXT` (NULL 허용)
-  - [ ] `start_date DATE NOT NULL`, `end_date DATE NOT NULL`
-  - [ ] `is_completed BOOLEAN NOT NULL DEFAULT false`
-  - [ ] `completed_at TIMESTAMPTZ` (NULL 허용)
-  - [ ] `created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()`
-  - [ ] `updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()`
-  - [ ] status 컬럼이 DDL에 포함되지 않음 확인 (BR-T-05)
+  - [x] `id UUID PRIMARY KEY DEFAULT gen_random_uuid()`
+  - [x] `user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE`
+  - [x] `title VARCHAR(200) NOT NULL`
+  - [x] `description TEXT` (NULL 허용)
+  - [x] `start_date DATE NOT NULL`, `end_date DATE NOT NULL`
+  - [x] `is_completed BOOLEAN NOT NULL DEFAULT false`
+  - [x] `completed_at TIMESTAMPTZ` (NULL 허용)
+  - [x] `created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()`
+  - [x] `updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()`
+  - [x] status 컬럼이 DDL에 포함되지 않음 확인 (BR-T-05)
 - **의존성**:
-  - [ ] DB-04 완료
+  - [x] DB-04 완료
 
 ---
 
@@ -105,12 +105,12 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: NFR-P-04 성능 요건 충족을 위한 인덱스 생성
 - **산출물**: `backend/src/migrations/004_create_indexes.sql`
 - **완료 조건**:
-  - [ ] `idx_todos_user_id` — todos(user_id)
-  - [ ] `idx_todos_end_date` — todos(end_date)
-  - [ ] `idx_todos_user_id_end_date` — todos(user_id, end_date) 복합
-  - [ ] 모든 인덱스 `CREATE INDEX IF NOT EXISTS` 사용
+  - [x] `idx_todos_user_id` — todos(user_id)
+  - [x] `idx_todos_end_date` — todos(end_date)
+  - [x] `idx_todos_user_id_end_date` — todos(user_id, end_date) 복합
+  - [x] 모든 인덱스 `CREATE INDEX IF NOT EXISTS` 사용
 - **의존성**:
-  - [ ] DB-05 완료
+  - [x] DB-05 완료
 
 ---
 
@@ -118,12 +118,12 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: todos UPDATE 시 updated_at을 NOW()로 자동 갱신하는 트리거 함수
 - **산출물**: `backend/src/migrations/005_create_updated_at_trigger.sql`
 - **완료 조건**:
-  - [ ] `set_updated_at()` PL/pgSQL 함수 생성
-  - [ ] `BEFORE UPDATE ON todos` 트리거 등록
-  - [ ] UPDATE 후 updated_at 자동 변경 확인
-  - [ ] created_at은 트리거에 의해 변경되지 않음 확인
+  - [x] `set_updated_at()` PL/pgSQL 함수 생성
+  - [x] `BEFORE UPDATE ON todos` 트리거 등록
+  - [x] UPDATE 후 updated_at 자동 변경 확인
+  - [x] created_at은 트리거에 의해 변경되지 않음 확인
 - **의존성**:
-  - [ ] DB-05 완료
+  - [x] DB-05 완료
 
 ---
 
@@ -131,13 +131,13 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 개발/테스트용 초기 데이터 삽입 스크립트 (프로덕션 실행 방지 가드 포함)
 - **산출물**: `backend/src/migrations/seed.js`
 - **완료 조건**:
-  - [ ] `NODE_ENV === 'production'` 시 실행 차단
-  - [ ] 테스트 사용자 3건 이상 (bcrypt 해시 password)
-  - [ ] 각 사용자당 todos 5건 이상 (다양한 상태 혼합)
-  - [ ] `INSERT ON CONFLICT DO NOTHING` 멱등성 보장
-  - [ ] `npm run seed` 스크립트 등록
+  - [x] `NODE_ENV === 'production'` 시 실행 차단
+  - [x] 테스트 사용자 3건 이상 (bcrypt 해시 password)
+  - [x] 각 사용자당 todos 5건 이상 (다양한 상태 혼합)
+  - [x] `INSERT ON CONFLICT DO NOTHING` 멱등성 보장
+  - [x] `npm run seed` 스크립트 등록
 - **의존성**:
-  - [ ] DB-06 완료
+  - [x] DB-06 완료
 
 ---
 
@@ -145,11 +145,11 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 동시접속 500명 규모 충족 여부 및 쿼리 응답 시간 검증
 - **산출물**: `backend/tests/db-performance.test.js`
 - **완료 조건**:
-  - [ ] 10개 동시 쿼리 실행 시 정상 처리 확인
-  - [ ] `idleTimeoutMillis`, `connectionTimeoutMillis` 설정 적용
-  - [ ] todos 단건 조회 P95 100ms 이하 확인
+  - [x] 10개 동시 쿼리 실행 시 정상 처리 확인
+  - [x] `idleTimeoutMillis`, `connectionTimeoutMillis` 설정 적용
+  - [x] todos 단건 조회 P95 100ms 이하 확인
 - **의존성**:
-  - [ ] DB-06 완료
+  - [x] DB-06 완료
 
 ---
 
@@ -157,10 +157,10 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: pg Pool 메트릭(totalCount, idleCount, waitingCount) 주기적 로깅
 - **산출물**: `backend/src/config/db.js` (로깅 보강)
 - **완료 조건**:
-  - [ ] Pool 상태 메트릭을 console.info로 출력
-  - [ ] 연결 풀 고갈 시 console.warn 경고 로그
+  - [x] Pool 상태 메트릭을 console.info로 출력
+  - [x] 연결 풀 고갈 시 console.warn 경고 로그
 - **의존성**:
-  - [ ] DB-01 완료
+  - [x] DB-01 완료
 
 ---
 
@@ -170,12 +170,12 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: Node.js + Express 프로젝트 초기화, 패키지 설치, 디렉토리 구조 생성, 환경변수 로드/검증
 - **산출물**: `backend/package.json`, `backend/.env.example`, `backend/src/config/env.js`, `backend/src/app.js`, `backend/src/server.js`
 - **완료 조건**:
-  - [ ] express, pg, bcrypt, jsonwebtoken, cookie-parser, cors, dotenv 패키지 설치
-  - [ ] `env.js`가 10개 환경변수 검증, 누락 시 프로세스 종료
-  - [ ] `server.js` 실행 시 포트 4000에서 정상 기동
-  - [ ] `.env.example`에 모든 키 + 설명 주석 포함
+  - [x] express, pg, bcrypt, jsonwebtoken, cookie-parser, cors, dotenv 패키지 설치
+  - [x] `env.js`가 10개 환경변수 검증, 누락 시 프로세스 종료
+  - [x] `server.js` 실행 시 포트 4000에서 정상 기동
+  - [x] `.env.example`에 모든 키 + 설명 주석 포함
 - **의존성**:
-  - [ ] 없음 (독립 실행 가능)
+  - [x] 없음 (독립 실행 가능)
 
 ---
 
@@ -183,17 +183,17 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 콘솔 기반 로거, 커스텀 에러 클래스, 할일 상태 산출 함수 구현
 - **산출물**: `backend/src/utils/logger.js`, `backend/src/utils/AppError.js`, `backend/src/utils/todoStatus.js`
 - **완료 조건**:
-  - [ ] `logger.js` — LOG_LEVEL 반영, error/warn/info/debug 메서드, 타임스탬프 포함
-  - [ ] `AppError.js` — statusCode, code, message 속성 포함 커스텀 Error
-  - [ ] `todoStatus.js` — `calculateStatus(todo, now)` 함수 구현:
-    - [ ] `is_completed=true` AND `completed_at <= end_date` → COMPLETED_ON_TIME
-    - [ ] `is_completed=true` AND `completed_at > end_date` → COMPLETED_LATE
-    - [ ] `is_completed=false` AND `now < start_date` → UPCOMING
-    - [ ] `is_completed=false` AND `start_date <= now <= end_date` → IN_PROGRESS
-    - [ ] `is_completed=false` AND `now > end_date` → OVERDUE
-  - [ ] todoStatus 단위 테스트 5개 케이스 통과
+  - [x] `logger.js` — LOG_LEVEL 반영, error/warn/info/debug 메서드, 타임스탬프 포함
+  - [x] `AppError.js` — statusCode, code, message 속성 포함 커스텀 Error
+  - [x] `todoStatus.js` — `calculateStatus(todo, now)` 함수 구현:
+    - [x] `is_completed=true` AND `completed_at <= end_date` → COMPLETED_ON_TIME
+    - [x] `is_completed=true` AND `completed_at > end_date` → COMPLETED_LATE
+    - [x] `is_completed=false` AND `now < start_date` → UPCOMING
+    - [x] `is_completed=false` AND `start_date <= now <= end_date` → IN_PROGRESS
+    - [x] `is_completed=false` AND `now > end_date` → OVERDUE
+  - [x] todoStatus 단위 테스트 5개 케이스 통과
 - **의존성**:
-  - [ ] BE-01 완료
+  - [x] BE-01 완료
 
 ---
 
@@ -201,15 +201,15 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 전역 에러 핸들러, JWT 인증 미들웨어, 요청 검증 미들웨어, CORS/보안 설정
 - **산출물**: `backend/src/middlewares/errorHandler.js`, `backend/src/middlewares/authenticate.js`, `backend/src/middlewares/validate.js`, `backend/src/app.js` 업데이트
 - **완료 조건**:
-  - [ ] 에러 응답 형식 통일: `{ "error": { "code": "...", "message": "..." } }`
-  - [ ] production에서 stack trace 클라이언트 미노출
-  - [ ] `authenticate.js` — Bearer 토큰 검증, `req.user = { id, email }` 설정
-  - [ ] 토큰 만료/서명 불일치/누락 시 401 반환
-  - [ ] `validate.js` — 스키마 기반 req.body/params/query 검증 팩토리
-  - [ ] CORS: credentials=true, CORS_ORIGIN 환경변수 반영
-  - [ ] `app.js`에 express.json, cookie-parser, cors, 라우터, errorHandler 순서 등록
+  - [x] 에러 응답 형식 통일: `{ "error": { "code": "...", "message": "..." } }`
+  - [x] production에서 stack trace 클라이언트 미노출
+  - [x] `authenticate.js` — Bearer 토큰 검증, `req.user = { id, email }` 설정
+  - [x] 토큰 만료/서명 불일치/누락 시 401 반환
+  - [x] `validate.js` — 스키마 기반 req.body/params/query 검증 팩토리
+  - [x] CORS: credentials=true, CORS_ORIGIN 환경변수 반영
+  - [x] `app.js`에 express.json, cookie-parser, cors, 라우터, errorHandler 순서 등록
 - **의존성**:
-  - [ ] BE-01, BE-02 완료
+  - [x] BE-01, BE-02 완료
 
 ---
 
@@ -217,14 +217,14 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: users 테이블 쿼리 및 회원가입/로그인/토큰 갱신 비즈니스 로직
 - **산출물**: `backend/src/queries/userQueries.js`, `backend/src/services/authService.js`
 - **완료 조건**:
-  - [ ] `userQueries` — createUser, findUserByEmail, findUserById (파라미터 바인딩)
-  - [ ] 이메일 중복 시 AppError(409) (BR-U-01)
-  - [ ] bcrypt cost factor 12로 해시 저장 (BR-U-04)
-  - [ ] 로그인 시 이메일 미존재에도 bcrypt.compare 수행 (타이밍 공격 방지)
-  - [ ] Access Token(HS256, 30분) + Refresh Token(HS256, 7일) 생성
-  - [ ] refresh — httpOnly 쿠키 Refresh Token 검증 → 새 Access Token 반환
+  - [x] `userQueries` — createUser, findUserByEmail, findUserById (파라미터 바인딩)
+  - [x] 이메일 중복 시 AppError(409) (BR-U-01)
+  - [x] bcrypt cost factor 12로 해시 저장 (BR-U-04)
+  - [x] 로그인 시 이메일 미존재에도 bcrypt.compare 수행 (타이밍 공격 방지)
+  - [x] Access Token(HS256, 30분) + Refresh Token(HS256, 7일) 생성
+  - [x] refresh — httpOnly 쿠키 Refresh Token 검증 → 새 Access Token 반환
 - **의존성**:
-  - [ ] BE-02, DB-04 완료
+  - [x] BE-02, DB-04 완료
 
 ---
 
@@ -232,14 +232,14 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 인증 4개 엔드포인트 구현 (register, login, logout, refresh)
 - **산출물**: `backend/src/controllers/authController.js`, `backend/src/routes/authRoutes.js`
 - **완료 조건**:
-  - [ ] POST /api/auth/register → 201, `{ user: { id, email, created_at } }`
-  - [ ] POST /api/auth/login → 200, Access Token(body) + Refresh Token(httpOnly Cookie)
-  - [ ] POST /api/auth/logout → 200, Refresh Token 쿠키 만료 처리
-  - [ ] POST /api/auth/refresh → 200, 새 Access Token 반환
-  - [ ] 비밀번호 규칙(8~20자, 대/소/숫자/특수문자) validate 미들웨어 검증 → 400
-  - [ ] 로그인 실패 → 401 (이메일/비밀번호 동일 메시지)
+  - [x] POST /api/auth/register → 201, `{ user: { id, email, created_at } }`
+  - [x] POST /api/auth/login → 200, Access Token(body) + Refresh Token(httpOnly Cookie)
+  - [x] POST /api/auth/logout → 200, Refresh Token 쿠키 만료 처리
+  - [x] POST /api/auth/refresh → 200, 새 Access Token 반환
+  - [x] 비밀번호 규칙(8~20자, 대/소/숫자/특수문자) validate 미들웨어 검증 → 400
+  - [x] 로그인 실패 → 401 (이메일/비밀번호 동일 메시지)
 - **의존성**:
-  - [ ] BE-03, BE-04 완료
+  - [x] BE-03, BE-04 완료
 
 ---
 
@@ -247,16 +247,16 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: todos 테이블 모든 CRUD 쿼리 함수 (소유권 검증 WHERE user_id 포함)
 - **산출물**: `backend/src/queries/todoQueries.js`
 - **완료 조건**:
-  - [ ] createTodo(userId, data) — 파라미터 바인딩
-  - [ ] findTodoById(todoId, userId) — user_id 조건 포함 (BR-U-03)
-  - [ ] findTodos(userId, filters) — status 필터, sort_by, order, page, limit 지원
-  - [ ] updateTodo(todoId, userId, data)
-  - [ ] deleteTodo(todoId, userId)
-  - [ ] completeTodo(todoId, userId, completedAt) — BR-T-03
-  - [ ] uncompleteTodo(todoId, userId) — completed_at NULL (BR-T-04)
-  - [ ] 동적 정렬 화이트리스트 방식 적용 (SQL Injection 방지)
+  - [x] createTodo(userId, data) — 파라미터 바인딩
+  - [x] findTodoById(todoId, userId) — user_id 조건 포함 (BR-U-03)
+  - [x] findTodos(userId, filters) — status 필터, sort_by, order, page, limit 지원
+  - [x] updateTodo(todoId, userId, data)
+  - [x] deleteTodo(todoId, userId)
+  - [x] completeTodo(todoId, userId, completedAt) — BR-T-03
+  - [x] uncompleteTodo(todoId, userId) — completed_at NULL (BR-T-04)
+  - [x] 동적 정렬 화이트리스트 방식 적용 (SQL Injection 방지)
 - **의존성**:
-  - [ ] DB-05 완료
+  - [x] DB-05 완료
 
 ---
 
@@ -264,13 +264,13 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 할일 비즈니스 규칙 적용, 상태 산출 통합, 소유권 검증
 - **산출물**: `backend/src/services/todoService.js`
 - **완료 조건**:
-  - [ ] 생성/수정 시 end_date >= start_date 검증 → AppError(400) (BR-T-02)
-  - [ ] 소유권 미일치 또는 미존재 → AppError(404) (BR-U-03)
-  - [ ] 모든 조회 응답에 `todoStatus.calculateStatus()` 결과 status 필드 포함
-  - [ ] 이미 완료된 항목 재완료 → AppError(409)
-  - [ ] 미완료 항목 완료 해제 → AppError(409)
+  - [x] 생성/수정 시 end_date >= start_date 검증 → AppError(400) (BR-T-02)
+  - [x] 소유권 미일치 또는 미존재 → AppError(404) (BR-U-03)
+  - [x] 모든 조회 응답에 `todoStatus.calculateStatus()` 결과 status 필드 포함
+  - [x] 이미 완료된 항목 재완료 → AppError(409)
+  - [x] 미완료 항목 완료 해제 → AppError(409)
 - **의존성**:
-  - [ ] BE-02, BE-06 완료
+  - [x] BE-02, BE-06 완료
 
 ---
 
@@ -278,18 +278,18 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 할일 관련 9개 엔드포인트 + 통계 1개 구현, 인증 미들웨어 적용
 - **산출물**: `backend/src/controllers/todoController.js`, `backend/src/routes/todoRoutes.js`
 - **완료 조건**:
-  - [ ] 모든 `/api/todos` 엔드포인트에 authenticate 미들웨어 적용
-  - [ ] POST /api/todos → 201, 생성된 todo(status 포함)
-  - [ ] GET /api/todos → 200, `{ data: [...], pagination: { total, page, limit, totalPages } }`
-  - [ ] GET /api/todos/statistics 라우트가 /api/todos/:id 보다 먼저 등록
-  - [ ] GET /api/todos/:id → 200, 단일 todo(status 포함)
-  - [ ] PUT /api/todos/:id → 200, 수정된 todo
-  - [ ] DELETE /api/todos/:id → 204
-  - [ ] PATCH /api/todos/:id/complete → 200
-  - [ ] PATCH /api/todos/:id/uncomplete → 200
-  - [ ] 기본값: page=1, limit=20, sort_by=created_at, order=desc
+  - [x] 모든 `/api/todos` 엔드포인트에 authenticate 미들웨어 적용
+  - [x] POST /api/todos → 201, 생성된 todo(status 포함)
+  - [x] GET /api/todos → 200, `{ data: [...], pagination: { total, page, limit, totalPages } }`
+  - [x] GET /api/todos/statistics 라우트가 /api/todos/:id 보다 먼저 등록
+  - [x] GET /api/todos/:id → 200, 단일 todo(status 포함)
+  - [x] PUT /api/todos/:id → 200, 수정된 todo
+  - [x] DELETE /api/todos/:id → 204
+  - [x] PATCH /api/todos/:id/complete → 200
+  - [x] PATCH /api/todos/:id/uncomplete → 200
+  - [x] 기본값: page=1, limit=20, sort_by=created_at, order=desc
 - **의존성**:
-  - [ ] BE-03, BE-07 완료
+  - [x] BE-03, BE-07 완료
 
 ---
 
@@ -297,16 +297,16 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 로그인 사용자의 할일 통계 집계 (5가지 지표)
 - **산출물**: `backend/src/queries/statsQueries.js`, `backend/src/services/statsService.js`
 - **완료 조건**:
-  - [ ] GET /api/todos/statistics → 200 반환:
-    - [ ] `total`: 전체 건수
-    - [ ] `by_status`: 5가지 상태별 건수
-    - [ ] `completion_rate`: 완료율 (%)
-    - [ ] `on_time_rate`: 기간 내 완료율 (%)
-    - [ ] `overdue_count`: OVERDUE + COMPLETED_LATE 건수
-  - [ ] 할일 0건 사용자 → 모든 값 0 (나누기 0 방지)
-  - [ ] 상태 산출 기준이 todoStatus.calculateStatus와 동일
+  - [x] GET /api/todos/statistics → 200 반환:
+    - [x] `total`: 전체 건수
+    - [x] `by_status`: 5가지 상태별 건수
+    - [x] `completion_rate`: 완료율 (%)
+    - [x] `on_time_rate`: 기간 내 완료율 (%)
+    - [x] `overdue_count`: OVERDUE + COMPLETED_LATE 건수
+  - [x] 할일 0건 사용자 → 모든 값 0 (나누기 0 방지)
+  - [x] 상태 산출 기준이 todoStatus.calculateStatus와 동일
 - **의존성**:
-  - [ ] BE-02, BE-06 완료
+  - [x] BE-02, BE-06 완료
 
 ---
 
@@ -314,14 +314,14 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: 전체 API 엔드포인트 통합 테스트, 비즈니스 규칙 위반 케이스 포함
 - **산출물**: `backend/tests/auth.test.js`, `backend/tests/todos.test.js`, `backend/tests/statistics.test.js`
 - **완료 조건**:
-  - [ ] 인증 4개 엔드포인트 정상/에러 케이스 테스트
-  - [ ] 할일 CRUD 9개 엔드포인트 정상 흐름 테스트
-  - [ ] BR-U-01, BR-U-03, BR-T-01~05 각 규칙 위반 케이스 포함
-  - [ ] 타인 할일 접근 → 404 테스트
-  - [ ] CRUD P95 300ms 이내, 목록 조회 P95 500ms 이내
-  - [ ] `npm test` 전체 통과
+  - [x] 인증 4개 엔드포인트 정상/에러 케이스 테스트
+  - [x] 할일 CRUD 9개 엔드포인트 정상 흐름 테스트
+  - [x] BR-U-01, BR-U-03, BR-T-01~05 각 규칙 위반 케이스 포함
+  - [x] 타인 할일 접근 → 404 테스트
+  - [x] CRUD P95 300ms 이내, 목록 조회 P95 500ms 이내
+  - [x] `npm test` 전체 통과
 - **의존성**:
-  - [ ] BE-05, BE-08, BE-09 완료
+  - [x] BE-05, BE-08, BE-09 완료
 
 ---
 
@@ -329,13 +329,13 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: Rate limiting, 헬스체크, 요청 바디 크기 제한, graceful shutdown
 - **산출물**: `backend/src/middlewares/rateLimiter.js`, `backend/src/routes/healthRoutes.js`
 - **완료 조건**:
-  - [ ] 인증 엔드포인트 분당 20회, 일반 API 분당 200회 제한
-  - [ ] Rate limit 초과 시 429 응답
-  - [ ] GET /api/health → 200, `{ status: "ok", db: "connected" }`
-  - [ ] express.json 바디 크기 10kb 제한
-  - [ ] 프로세스 종료 시 pg Pool graceful shutdown
+  - [x] 인증 엔드포인트 분당 20회, 일반 API 분당 200회 제한
+  - [x] Rate limit 초과 시 429 응답
+  - [x] GET /api/health → 200, `{ status: "ok", db: "connected" }`
+  - [x] express.json 바디 크기 10kb 제한
+  - [x] 프로세스 종료 시 pg Pool graceful shutdown
 - **의존성**:
-  - [ ] BE-05, BE-08 완료
+  - [x] BE-05, BE-08 완료
 
 ---
 
@@ -343,11 +343,11 @@ Phase 6 (마무리)    BE-11, BE-12, DB-09, DB-10
 - **설명**: API 응답 예시 정리, 에러 코드 목록 정리, 최종 통합 동작 검증
 - **산출물**: `backend/README.md`
 - **완료 조건**:
-  - [ ] 전체 12개 엔드포인트 정상 동작 확인
-  - [ ] 에러 코드 목록 (400, 401, 404, 409, 423, 429) 정리
-  - [ ] 환경 설정 가이드 포함
+  - [x] 전체 12개 엔드포인트 정상 동작 확인
+  - [x] 에러 코드 목록 (400, 401, 404, 409, 423, 429) 정리
+  - [x] 환경 설정 가이드 포함
 - **의존성**:
-  - [ ] BE-10, BE-11 완료
+  - [x] BE-10, BE-11 완료
 
 ---
 

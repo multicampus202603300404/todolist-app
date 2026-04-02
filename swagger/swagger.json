@@ -23,9 +23,38 @@
     {
       "name": "Statistics",
       "description": "통계 관련 API"
+    },
+    {
+      "name": "Health",
+      "description": "서버 상태 확인"
     }
   ],
   "paths": {
+    "/api/health": {
+      "get": {
+        "tags": ["Health"],
+        "summary": "헬스체크",
+        "description": "서버 상태 및 DB 연결 상태를 확인합니다.",
+        "operationId": "healthCheck",
+        "responses": {
+          "200": {
+            "description": "서버 정상",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "ok" },
+                    "timestamp": { "type": "string", "format": "date-time" },
+                    "db": { "type": "string", "enum": ["connected", "disconnected"] }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/auth/register": {
       "post": {
         "tags": ["Auth"],
@@ -792,17 +821,11 @@
         ],
         "responses": {
           "200": {
-            "description": "완료 처리 성공",
+            "description": "완료 처리 성공 (전체 Todo 객체 반환)",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TodoCompleteResponse"
-                },
-                "example": {
-                  "id": "550e8400-e29b-41d4-a716-446655440001",
-                  "is_completed": true,
-                  "completed_at": "2026-04-02T09:30:00.000Z",
-                  "status": "COMPLETED_ON_TIME"
+                  "$ref": "#/components/schemas/Todo"
                 }
               }
             }
@@ -883,17 +906,11 @@
         ],
         "responses": {
           "200": {
-            "description": "완료 취소 성공",
+            "description": "완료 취소 성공 (전체 Todo 객체 반환)",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TodoUncompleteResponse"
-                },
-                "example": {
-                  "id": "550e8400-e29b-41d4-a716-446655440001",
-                  "is_completed": false,
-                  "completed_at": null,
-                  "status": "IN_PROGRESS"
+                  "$ref": "#/components/schemas/Todo"
                 }
               }
             }
