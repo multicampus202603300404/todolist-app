@@ -18,7 +18,9 @@ app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
 
 // --- Swagger UI ---
 const swaggerServers = [];
-if (process.env.VERCEL_URL) {
+if (process.env.API_BASE_URL) {
+  swaggerServers.push({ url: process.env.API_BASE_URL, description: 'Production server (Vercel)' });
+} else if (process.env.VERCEL_URL) {
   swaggerServers.push({ url: `https://${process.env.VERCEL_URL}`, description: 'Production server (Vercel)' });
 }
 swaggerServers.push({ url: 'http://localhost:4000', description: 'Local development server' });
