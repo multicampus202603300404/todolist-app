@@ -9,6 +9,10 @@
     {
       "url": "http://localhost:4000",
       "description": "Local development server"
+    },
+    {
+      "url": "https://backend-kdk.vercel.app",
+      "description": "vercel backend server"
     }
   ],
   "tags": [
