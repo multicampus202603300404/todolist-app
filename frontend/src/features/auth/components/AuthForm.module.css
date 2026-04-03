@@ -1,5 +1,5 @@
 .form { display: flex; flex-direction: column; gap: var(--space-4); }
-.title { font-size: var(--font-size-2xl); font-weight: 700; text-align: center; margin-bottom: var(--space-4); }
+.title { font-size: var(--font-size-2xl); font-weight: 800; text-align: center; margin-bottom: var(--space-4); font-family: 'Jua', 'Nunito', sans-serif; letter-spacing: -0.01em; }
 .submitBtn { width: 100%; margin-top: var(--space-2); }
 .message { padding: var(--space-3); border-radius: var(--radius-md); font-size: var(--font-size-sm); }
 .error { background: var(--color-danger-light); color: var(--color-danger); }
