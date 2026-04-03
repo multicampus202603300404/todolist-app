@@ -17,13 +17,22 @@ app.use(cookieParser());
 app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
 
 // --- Swagger UI ---
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
-  customCssUrl: 'https://unpkg.com/swagger-ui-dist@5/swagger-ui.css',
-  customJs: [
-    'https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js',
-    'https://unpkg.com/swagger-ui-dist@5/swagger-ui-standalone-preset.js',
-  ],
-}));
+const swaggerServers = [];
+if (process.env.VERCEL_URL) {
+  swaggerServers.push({ url: `https://${process.env.VERCEL_URL}`, description: 'Production server (Vercel)' });
+}
+swaggerServers.push({ url: 'http://localhost:4000', description: 'Local development server' });
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(
+  { ...swaggerDocument, servers: swaggerServers },
+  {
+    customCssUrl: 'https://unpkg.com/swagger-ui-dist@5/swagger-ui.css',
+    customJs: [
+      'https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js',
+      'https://unpkg.com/swagger-ui-dist@5/swagger-ui-standalone-preset.js',
+    ],
+  }
+));
 
 // --- 헬스체크 ---
 const healthRoutes = require('./routes/healthRoutes');
