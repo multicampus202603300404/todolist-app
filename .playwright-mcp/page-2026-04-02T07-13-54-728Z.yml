@@ -1,0 +1,114 @@
+- generic [ref=e2]:
+  - generic [ref=e237]:
+    - generic [ref=e238]:
+      - heading "할일 목록" [level=1] [ref=e239]
+      - generic [ref=e240]:
+        - combobox "Language" [ref=e241] [cursor=pointer]:
+          - option "한국어" [selected]
+          - option "English"
+          - option "日本語"
+          - option "中文"
+        - button "테마 전환" [ref=e242] [cursor=pointer]: 🌙
+        - button "프로필" [ref=e243] [cursor=pointer]
+        - button "통계" [ref=e244] [cursor=pointer]
+        - button "로그아웃" [ref=e245] [cursor=pointer]
+    - generic [ref=e246]:
+      - button "전체" [ref=e247] [cursor=pointer]
+      - button "시작 전" [ref=e248] [cursor=pointer]
+      - button "진행 중" [ref=e249] [cursor=pointer]
+      - button "종료됨" [ref=e250] [cursor=pointer]
+      - button "기간 내 완료" [ref=e251] [cursor=pointer]
+      - button "기간 초과 완료" [ref=e252] [cursor=pointer]
+    - generic [ref=e253]:
+      - combobox [ref=e254]:
+        - option "등록일" [selected]
+        - option "종료일"
+        - option "시작일"
+        - option "제목"
+      - combobox [ref=e255]:
+        - option "내림차순" [selected]
+        - option "오름차순"
+    - generic [ref=e256]:
+      - generic [ref=e257] [cursor=pointer]:
+        - checkbox [ref=e258]
+        - generic [ref=e259]:
+          - generic [ref=e260]: 수학 숙제 제출
+          - generic [ref=e261]: 2026-03-31 ~ 2026-04-01
+        - generic [ref=e262]: 진행 중
+      - generic [ref=e263] [cursor=pointer]:
+        - checkbox [checked] [ref=e264]
+        - generic [ref=e265]:
+          - generic [ref=e266]: SNS 캠페인 기획서 작성
+          - generic [ref=e267]: 2026-03-27 ~ 2026-04-01
+        - generic [ref=e268]: 기간 초과 완료
+      - generic [ref=e269] [cursor=pointer]:
+        - checkbox [ref=e270]
+        - generic [ref=e271]:
+          - generic [ref=e272]: 건강검진 예약 및 방문
+          - generic [ref=e273]: 2026-02-28 ~ 2026-03-19
+        - generic [ref=e274]: 진행 중
+      - generic [ref=e275] [cursor=pointer]:
+        - checkbox [ref=e276]
+        - generic [ref=e277]:
+          - generic [ref=e278]: 졸업논문 초안 작성
+          - generic [ref=e279]: 2026-03-14 ~ 2026-04-04
+        - generic [ref=e280]: 진행 중
+      - generic [ref=e281] [cursor=pointer]:
+        - checkbox [ref=e282]
+        - generic [ref=e283]:
+          - generic [ref=e284]: Q2 사업계획서 검토
+          - generic [ref=e285]: 2026-03-24 ~ 2026-04-09
+        - generic [ref=e286]: 진행 중
+      - generic [ref=e287] [cursor=pointer]:
+        - checkbox [ref=e288]
+        - generic [ref=e289]:
+          - generic [ref=e290]: 팀 주간회의 자료 준비
+          - generic [ref=e291]: 2026-03-29 ~ 2026-04-03
+        - generic [ref=e292]: 진행 중
+      - generic [ref=e293] [cursor=pointer]:
+        - checkbox [ref=e294]
+        - generic [ref=e295]:
+          - generic [ref=e296]: 예산안 최종 승인 요청
+          - generic [ref=e297]: 2026-03-31 ~ 2026-04-14
+        - generic [ref=e298]: 진행 중
+      - generic [ref=e299] [cursor=pointer]:
+        - checkbox [ref=e300]
+        - generic [ref=e301]:
+          - generic [ref=e302]: 영어 글쓰기 에세이 제출
+          - generic [ref=e303]: 2026-03-19 ~ 2026-04-02
+        - generic [ref=e304]: 진행 중
+      - generic [ref=e305] [cursor=pointer]:
+        - checkbox [ref=e306]
+        - generic [ref=e307]:
+          - generic [ref=e308]: 자료구조 과제 1 제출
+          - generic [ref=e309]: 2026-03-24 ~ 2026-04-04
+        - generic [ref=e310]: 진행 중
+      - generic [ref=e311] [cursor=pointer]:
+        - checkbox [ref=e312]
+        - generic [ref=e313]:
+          - generic [ref=e314]: 프로그래밍 언어론 중간고사 준비
+          - generic [ref=e315]: 2026-03-31 ~ 2026-04-19
+        - generic [ref=e316]: 진행 중
+      - generic [ref=e317] [cursor=pointer]:
+        - checkbox [ref=e318]
+        - generic [ref=e319]:
+          - generic [ref=e320]: 팀 프로젝트 1차 발표
+          - generic [ref=e321]: 2026-04-09 ~ 2026-04-30
+        - generic [ref=e322]: 진행 중
+      - generic [ref=e323] [cursor=pointer]:
+        - checkbox [checked] [ref=e324]
+        - generic [ref=e325]:
+          - generic [ref=e326]: 신규 서비스 기획안 제출
+          - generic [ref=e327]: 2026-02-28 ~ 2026-03-24
+        - generic [ref=e328]: 기간 초과 완료
+      - generic [ref=e329] [cursor=pointer]:
+        - checkbox [ref=e330]
+        - generic [ref=e331]:
+          - generic [ref=e332]: 경영통계학 기말고사 준비
+          - generic [ref=e333]: 2026-05-19 ~ 2026-06-09
+        - generic [ref=e334]: 진행 중
+    - button "+ 할일 추가" [ref=e336] [cursor=pointer]
+  - generic [ref=e25]:
+    - img [ref=e27]
+    - button "Open Tanstack query devtools" [ref=e75] [cursor=pointer]:
+      - img [ref=e76]

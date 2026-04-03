@@ -1,0 +1,34 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e206]:
+      - button "< 목록으로" [ref=e207] [cursor=pointer]
+      - generic [ref=e208]:
+        - generic [ref=e209]: 진행 중
+        - heading "SNS 캠페인 기획서 작성" [level=1] [ref=e210]
+        - paragraph [ref=e211]: 클라이언트 납품용 기획서
+        - generic [ref=e212]:
+          - generic [ref=e213]:
+            - generic [ref=e214]: 기간
+            - text: 2026-03-27 ~ 2026-04-01
+          - generic [ref=e215]:
+            - generic [ref=e216]: 완료 일시
+            - text: "-"
+          - generic [ref=e217]:
+            - generic [ref=e218]: 등록일
+            - text: 2026. 4. 2. 오후 4:12:36
+          - generic [ref=e219]:
+            - generic [ref=e220]: 수정일
+            - text: 2026. 4. 2. 오후 4:12:36
+        - generic [ref=e221]:
+          - button "수정" [ref=e222] [cursor=pointer]
+          - button "완료 처리" [ref=e223] [cursor=pointer]
+          - button "삭제" [ref=e224] [cursor=pointer]
+    - generic [ref=e25]:
+      - img [ref=e27]
+      - button "Open Tanstack query devtools" [ref=e75] [cursor=pointer]:
+        - img [ref=e76]
+  - dialog [active] [ref=e226]:
+    - heading "할일을 완료 처리할까요?" [level=3] [ref=e227]
+    - generic [ref=e228]:
+      - button "취소" [ref=e229] [cursor=pointer]
+      - button "확인" [ref=e230] [cursor=pointer]

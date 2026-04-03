@@ -1,0 +1,37 @@
+- generic [ref=e2]:
+  - generic [ref=e804]:
+    - button "< 목록으로" [ref=e805] [cursor=pointer]
+    - heading "할일 통계" [level=1] [ref=e806]
+    - generic [ref=e807]:
+      - text: "전체 건수:"
+      - strong [ref=e808]: 13건
+    - generic [ref=e809]:
+      - button "시작 전 0건" [ref=e810] [cursor=pointer]:
+        - generic [ref=e811]: 시작 전
+        - generic [ref=e812]: 0건
+      - button "진행 중 10건" [ref=e813] [cursor=pointer]:
+        - generic [ref=e814]: 진행 중
+        - generic [ref=e815]: 10건
+      - button "종료됨 0건" [ref=e816] [cursor=pointer]:
+        - generic [ref=e817]: 종료됨
+        - generic [ref=e818]: 0건
+      - button "기간 내 완료 0건" [ref=e819] [cursor=pointer]:
+        - generic [ref=e820]: 기간 내 완료
+        - generic [ref=e821]: 0건
+      - button "기간 초과 완료 3건" [ref=e822] [cursor=pointer]:
+        - generic [ref=e823]: 기간 초과 완료
+        - generic [ref=e824]: 3건
+    - generic [ref=e825]:
+      - generic [ref=e826]:
+        - generic [ref=e827]: 완료율
+        - generic [ref=e830]: 23.08%
+      - generic [ref=e831]:
+        - generic [ref=e832]: 기간 내 완료율
+        - generic [ref=e834]: 0%
+    - generic [ref=e835]:
+      - text: "기간 초과 건수:"
+      - strong [ref=e836]: 3건
+  - generic [ref=e25]:
+    - img [ref=e27]
+    - button "Open Tanstack query devtools" [ref=e75] [cursor=pointer]:
+      - img [ref=e76]

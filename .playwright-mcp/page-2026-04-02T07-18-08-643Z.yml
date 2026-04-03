@@ -1,0 +1,54 @@
+- generic [ref=e2]:
+  - generic [ref=e838]:
+    - generic [ref=e839]:
+      - heading "할일 목록" [level=1] [ref=e840]
+      - generic [ref=e841]:
+        - combobox "Language" [ref=e842] [cursor=pointer]:
+          - option "한국어" [selected]
+          - option "English"
+          - option "日本語"
+          - option "中文"
+        - button "테마 전환" [ref=e843] [cursor=pointer]: 🌙
+        - button "프로필" [ref=e844] [cursor=pointer]
+        - button "통계" [ref=e845] [cursor=pointer]
+        - button "로그아웃" [ref=e846] [cursor=pointer]
+    - generic [ref=e847]:
+      - button "전체" [ref=e848] [cursor=pointer]
+      - button "시작 전" [ref=e849] [cursor=pointer]
+      - button "진행 중" [ref=e850] [cursor=pointer]
+      - button "종료됨" [ref=e851] [cursor=pointer]
+      - button "기간 내 완료" [ref=e852] [cursor=pointer]
+      - button "기간 초과 완료" [ref=e853] [cursor=pointer]
+    - generic [ref=e854]:
+      - combobox [ref=e855]:
+        - option "등록일" [selected]
+        - option "종료일"
+        - option "시작일"
+        - option "제목"
+      - combobox [ref=e856]:
+        - option "내림차순" [selected]
+        - option "오름차순"
+    - generic [ref=e857]:
+      - generic [ref=e858] [cursor=pointer]:
+        - checkbox [checked] [ref=e859]
+        - generic [ref=e860]:
+          - generic [ref=e861]: SNS 캠페인 기획서 작성
+          - generic [ref=e862]: 2026-03-27 ~ 2026-04-01
+        - generic [ref=e863]: 기간 초과 완료
+      - generic [ref=e864] [cursor=pointer]:
+        - checkbox [checked] [ref=e865]
+        - generic [ref=e866]:
+          - generic [ref=e867]: 건강검진 예약 및 방문
+          - generic [ref=e868]: 2026-02-28 ~ 2026-03-19
+        - generic [ref=e869]: 기간 초과 완료
+      - generic [ref=e870] [cursor=pointer]:
+        - checkbox [checked] [ref=e871]
+        - generic [ref=e872]:
+          - generic [ref=e873]: 신규 서비스 기획안 제출
+          - generic [ref=e874]: 2026-02-28 ~ 2026-03-24
+        - generic [ref=e875]: 기간 초과 완료
+    - button "+ 할일 추가" [ref=e877] [cursor=pointer]
+  - generic [ref=e25]:
+    - img [ref=e27]
+    - button "Open Tanstack query devtools" [ref=e75] [cursor=pointer]:
+      - img [ref=e76]

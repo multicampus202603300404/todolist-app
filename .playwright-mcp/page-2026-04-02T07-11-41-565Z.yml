@@ -1,0 +1,44 @@
+- generic [ref=e2]:
+  - generic [ref=e195]:
+    - generic [ref=e196]:
+      - heading "할일 목록" [level=1] [ref=e197]
+      - generic [ref=e198]:
+        - combobox "Language" [ref=e199] [cursor=pointer]:
+          - option "한국어" [selected]
+          - option "English"
+          - option "日本語"
+          - option "中文"
+        - button "테마 전환" [ref=e200] [cursor=pointer]: 🌙
+        - button "프로필" [ref=e201] [cursor=pointer]
+        - button "통계" [ref=e202] [cursor=pointer]
+        - button "로그아웃" [ref=e203] [cursor=pointer]
+    - generic [ref=e204]:
+      - button "전체" [ref=e205] [cursor=pointer]
+      - button "시작 전" [ref=e206] [cursor=pointer]
+      - button "진행 중" [ref=e207] [cursor=pointer]
+      - button "종료됨" [ref=e208] [cursor=pointer]
+      - button "기간 내 완료" [ref=e209] [cursor=pointer]
+      - button "기간 초과 완료" [ref=e210] [cursor=pointer]
+    - generic [ref=e211]:
+      - combobox [ref=e212]:
+        - option "등록일" [selected]
+        - option "종료일"
+        - option "시작일"
+        - option "제목"
+      - combobox [ref=e213]:
+        - option "내림차순" [selected]
+        - option "오름차순"
+    - generic [ref=e215] [cursor=pointer]:
+      - checkbox [ref=e216]
+      - generic [ref=e217]:
+        - generic [ref=e218]: 경영통계학 기말고사 준비
+        - generic [ref=e219]: 2026-05-19 ~ 2026-06-09
+      - generic [ref=e220]: 진행 중
+    - button "+ 할일 추가" [ref=e222] [cursor=pointer]
+  - generic [ref=e224]:
+    - generic [ref=e225]: 할일이 등록되었습니다
+    - button "닫기" [ref=e226] [cursor=pointer]: ×
+  - generic [ref=e16]:
+    - img [ref=e18]
+    - button "Open Tanstack query devtools" [ref=e66] [cursor=pointer]:
+      - img [ref=e67]

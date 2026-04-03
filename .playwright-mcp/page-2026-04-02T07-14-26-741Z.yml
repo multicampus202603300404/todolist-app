@@ -1,0 +1,34 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e338]:
+      - button "< 목록으로" [ref=e339] [cursor=pointer]
+      - generic [ref=e340]:
+        - generic [ref=e341]: 진행 중
+        - heading "건강검진 예약 및 방문" [level=1] [ref=e342]
+        - paragraph [ref=e343]: 연간 건강검진
+        - generic [ref=e344]:
+          - generic [ref=e345]:
+            - generic [ref=e346]: 기간
+            - text: 2026-02-28 ~ 2026-03-19
+          - generic [ref=e347]:
+            - generic [ref=e348]: 완료 일시
+            - text: "-"
+          - generic [ref=e349]:
+            - generic [ref=e350]: 등록일
+            - text: 2026. 4. 2. 오후 4:12:36
+          - generic [ref=e351]:
+            - generic [ref=e352]: 수정일
+            - text: 2026. 4. 2. 오후 4:12:36
+        - generic [ref=e353]:
+          - button "수정" [ref=e354] [cursor=pointer]
+          - button "완료 처리" [ref=e355] [cursor=pointer]
+          - button "삭제" [ref=e356] [cursor=pointer]
+    - generic [ref=e25]:
+      - img [ref=e27]
+      - button "Open Tanstack query devtools" [ref=e75] [cursor=pointer]:
+        - img [ref=e76]
+  - dialog [active] [ref=e358]:
+    - heading "할일을 완료 처리할까요?" [level=3] [ref=e359]
+    - generic [ref=e360]:
+      - button "취소" [ref=e361] [cursor=pointer]
+      - button "확인" [ref=e362] [cursor=pointer]

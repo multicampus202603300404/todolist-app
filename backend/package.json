@@ -4,6 +4,7 @@
   "description": "todolist-app 백엔드 서버",
   "main": "src/server.js",
   "scripts": {
+    "build": "npm install",
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
     "test": "jest --runInBand --forceExit",
@@ -11,13 +12,14 @@
     "seed": "node src/migrations/seed.js"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.0",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.0",
+    "run": "^1.5.0",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {

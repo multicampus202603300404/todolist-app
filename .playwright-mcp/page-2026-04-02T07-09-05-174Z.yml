@@ -1,0 +1,16 @@
+- generic [ref=e2]:
+  - generic [ref=e4]:
+    - heading "회원가입 성공" [level=1] [ref=e124]
+    - paragraph [ref=e23]:
+      - strong [ref=e125]: jiwoo.park@gmail.com
+    - paragraph [ref=e126]: 이메일 인증을 완료한 후 로그인해주세요.
+    - link "로그인" [ref=e127] [cursor=pointer]:
+      - /url: /login
+      - button "로그인" [ref=e128]
+  - generic [ref=e130]:
+    - generic [ref=e131]: 회원가입 성공
+    - button "닫기" [ref=e132] [cursor=pointer]: ×
+  - generic [ref=e25]:
+    - img [ref=e27]
+    - button "Open Tanstack query devtools" [ref=e75] [cursor=pointer]:
+      - img [ref=e76]

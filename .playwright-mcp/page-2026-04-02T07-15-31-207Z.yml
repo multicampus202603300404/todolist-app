@@ -1,0 +1,31 @@
+- generic [ref=e2]:
+  - generic [ref=e490]:
+    - button "< 상세로 돌아가기" [ref=e491] [cursor=pointer]
+    - heading "할일 수정" [level=1] [ref=e492]
+    - generic [ref=e494]:
+      - generic [ref=e495]:
+        - generic [ref=e496]: 제목 *
+        - textbox "제목 *" [ref=e497]:
+          - /placeholder: 할일 제목을 입력하세요
+          - text: 졸업논문 초안 작성
+      - generic [ref=e498]: 10/200
+      - generic [ref=e499]:
+        - generic [ref=e500]: 설명
+        - textbox "설명" [ref=e501]:
+          - /placeholder: 설명을 입력하세요 (선택)
+          - text: 지도교수 피드백 반영 전 초안
+        - generic [ref=e503]: 16/2000
+      - generic [ref=e504]:
+        - generic [ref=e505]:
+          - generic [ref=e506]: 시작일 *
+          - textbox "시작일 *" [ref=e507]
+        - generic [ref=e508]:
+          - generic [ref=e509]: 종료일 *
+          - textbox "종료일 *" [ref=e510]
+      - generic [ref=e511]:
+        - button "취소" [ref=e512] [cursor=pointer]
+        - button "저장" [ref=e513] [cursor=pointer]
+  - generic [ref=e25]:
+    - img [ref=e27]
+    - button "Open Tanstack query devtools" [ref=e75] [cursor=pointer]:
+      - img [ref=e76]

@@ -1,0 +1,31 @@
+- generic [ref=e2]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - heading "회원가입" [level=1] [ref=e6]
+      - generic [ref=e7]:
+        - generic [ref=e8]: 이메일 *
+        - textbox "이메일 *" [ref=e9]:
+          - /placeholder: 이메일을 입력하세요
+      - generic [ref=e10]:
+        - generic [ref=e11]: 비밀번호 *
+        - textbox "비밀번호 *" [ref=e12]:
+          - /placeholder: 비밀번호를 입력하세요
+      - generic [ref=e13]:
+        - generic [ref=e14]: ○ 8~20자
+        - generic [ref=e15]: ○ 영문 대문자 1자 이상
+        - generic [ref=e16]: ○ 영문 소문자 1자 이상
+        - generic [ref=e17]: ○ 숫자 1자 이상
+        - generic [ref=e18]: ○ 특수문자(!@#$%^&*) 1자 이상
+      - generic [ref=e19]:
+        - generic [ref=e20]: 비밀번호 확인 *
+        - textbox "비밀번호 확인 *" [ref=e21]:
+          - /placeholder: 비밀번호를 다시 입력하세요
+      - button "회원가입" [disabled] [ref=e22]
+    - paragraph [ref=e23]:
+      - text: 이미 계정이 있으신가요?
+      - link "로그인" [ref=e24] [cursor=pointer]:
+        - /url: /login
+  - generic [ref=e25]:
+    - img [ref=e27]
+    - button "Open Tanstack query devtools" [ref=e75] [cursor=pointer]:
+      - img [ref=e76]

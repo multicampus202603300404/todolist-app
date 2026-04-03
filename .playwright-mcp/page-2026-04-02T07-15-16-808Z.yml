@@ -1,0 +1,28 @@
+- generic [ref=e2]:
+  - generic [ref=e470]:
+    - button "< 목록으로" [ref=e471] [cursor=pointer]
+    - generic [ref=e472]:
+      - generic [ref=e473]: 진행 중
+      - heading "졸업논문 초안 작성" [level=1] [ref=e474]
+      - paragraph [ref=e475]: 지도교수 피드백 반영 전 초안
+      - generic [ref=e476]:
+        - generic [ref=e477]:
+          - generic [ref=e478]: 기간
+          - text: 2026-03-14 ~ 2026-04-04
+        - generic [ref=e479]:
+          - generic [ref=e480]: 완료 일시
+          - text: "-"
+        - generic [ref=e481]:
+          - generic [ref=e482]: 등록일
+          - text: 2026. 4. 2. 오후 4:12:36
+        - generic [ref=e483]:
+          - generic [ref=e484]: 수정일
+          - text: 2026. 4. 2. 오후 4:12:36
+      - generic [ref=e485]:
+        - button "수정" [ref=e486] [cursor=pointer]
+        - button "완료 처리" [ref=e487] [cursor=pointer]
+        - button "삭제" [ref=e488] [cursor=pointer]
+  - generic [ref=e25]:
+    - img [ref=e27]
+    - button "Open Tanstack query devtools" [ref=e75] [cursor=pointer]:
+      - img [ref=e76]

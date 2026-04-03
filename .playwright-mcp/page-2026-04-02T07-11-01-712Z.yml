@@ -1,0 +1,41 @@
+- generic [ref=e2]:
+  - generic [ref=e141]:
+    - generic [ref=e142]:
+      - heading "할일 목록" [level=1] [ref=e143]
+      - generic [ref=e144]:
+        - combobox "Language" [ref=e145] [cursor=pointer]:
+          - option "한국어" [selected]
+          - option "English"
+          - option "日本語"
+          - option "中文"
+        - button "테마 전환" [ref=e146] [cursor=pointer]: 🌙
+        - button "프로필" [ref=e147] [cursor=pointer]
+        - button "통계" [ref=e148] [cursor=pointer]
+        - button "로그아웃" [ref=e149] [cursor=pointer]
+    - generic [ref=e150]:
+      - button "전체" [ref=e151] [cursor=pointer]
+      - button "시작 전" [ref=e152] [cursor=pointer]
+      - button "진행 중" [ref=e153] [cursor=pointer]
+      - button "종료됨" [ref=e154] [cursor=pointer]
+      - button "기간 내 완료" [ref=e155] [cursor=pointer]
+      - button "기간 초과 완료" [ref=e156] [cursor=pointer]
+    - generic [ref=e157]:
+      - combobox [ref=e158]:
+        - option "등록일" [selected]
+        - option "종료일"
+        - option "시작일"
+        - option "제목"
+      - combobox [ref=e159]:
+        - option "내림차순" [selected]
+        - option "오름차순"
+    - generic [ref=e160]:
+      - heading "아직 등록된 할일이 없습니다" [level=3] [ref=e161]
+      - paragraph [ref=e162]: 첫 번째 할일을 추가해보세요!
+      - button "+ 할일 추가" [ref=e164] [cursor=pointer]
+  - generic [ref=e166]:
+    - generic [ref=e167]: 로그인 성공
+    - button "닫기" [ref=e168] [cursor=pointer]: ×
+  - generic [ref=e16]:
+    - img [ref=e18]
+    - button "Open Tanstack query devtools" [ref=e66] [cursor=pointer]:
+      - img [ref=e67]

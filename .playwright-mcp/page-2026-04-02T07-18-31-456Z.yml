@@ -1,0 +1,28 @@
+- generic [ref=e2]:
+  - generic [ref=e879]:
+    - button "< 목록으로" [ref=e880] [cursor=pointer]
+    - generic [ref=e881]:
+      - generic [ref=e882]: 기간 초과 완료
+      - heading "신규 서비스 기획안 제출" [level=1] [ref=e883]
+      - paragraph [ref=e884]: 스타트업 신규 서비스 기획
+      - generic [ref=e885]:
+        - generic [ref=e886]:
+          - generic [ref=e887]: 기간
+          - text: 2026-02-28 ~ 2026-03-24
+        - generic [ref=e888]:
+          - generic [ref=e889]: 완료 일시
+          - text: 2026. 3. 24. 오후 6:00:00
+        - generic [ref=e890]:
+          - generic [ref=e891]: 등록일
+          - text: 2026. 4. 2. 오후 4:12:36
+        - generic [ref=e892]:
+          - generic [ref=e893]: 수정일
+          - text: 2026. 4. 2. 오후 4:12:36
+      - generic [ref=e894]:
+        - button "수정" [ref=e895] [cursor=pointer]
+        - button "완료 해제" [ref=e896] [cursor=pointer]
+        - button "삭제" [ref=e897] [cursor=pointer]
+  - generic [ref=e25]:
+    - img [ref=e27]
+    - button "Open Tanstack query devtools" [ref=e75] [cursor=pointer]:
+      - img [ref=e76]
